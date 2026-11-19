@@ -1,0 +1,34 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Hi,WenQuanYi Zen Hei,76,&H00000000,&H00000000,&H0000D7FF,&H0000D7FF,1,0,0,0,100,100,0,0,3,18,0,8,80,140,600,1
+Style: Hook,WenQuanYi Zen Hei,70,&H00FFFFFF,&H00FFFFFF,&H00000000,&HA0000000,1,0,0,0,100,100,0,0,3,26,0,5,80,140,0,1
+Style: Title,WenQuanYi Zen Hei,56,&H00FFFFFF,&H00FFFFFF,&H002A2AD0,&H002A2AD0,1,0,0,0,100,100,0,0,3,14,0,8,60,140,190,1
+Style: Loc,WenQuanYi Zen Hei,44,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,1,0,0,0,100,100,0,0,1,4,1,8,60,140,300,1
+Style: Bar,WenQuanYi Zen Hei,58,&H00FFFFFF,&H00FFFFFF,&H002A2AD0,&H002A2AD0,1,0,0,0,100,100,0,0,3,16,0,2,60,140,430,1
+Style: End,WenQuanYi Zen Hei,72,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB0000000,1,0,0,0,100,100,0,0,3,30,0,5,80,140,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 4,0:00:00.00,0:00:05.50,Hook,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}{\fs120\c&H00D7FF&}RM399K NETT{\r}\NFreehold · Malay Reserve\NSijangkang
+Dialogue: 2,0:00:05.50,0:00:48.70,Title,,0,0,0,,Teres 1 Tingkat · Sijangkang
+Dialogue: 2,0:00:05.50,0:00:48.70,Loc,,0,0,0,,Lokasi: Sijangkang, Kuala Langat, Selangor
+Dialogue: 2,0:00:05.50,0:00:48.70,Bar,,0,0,0,,RM399K NETT · Freehold · 20' × 70'
+Dialogue: 3,0:00:05.50,0:00:13.00,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Saiz tanah 20' × 70'\NPorch luas
+Dialogue: 3,0:00:13.00,0:00:18.50,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Ruang tamu luas
+Dialogue: 3,0:00:18.50,0:00:23.00,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Bilik tidur
+Dialogue: 3,0:00:23.00,0:00:25.80,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Bilik air
+Dialogue: 3,0:00:25.80,0:00:30.30,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Bilik tidur
+Dialogue: 3,0:00:30.30,0:00:33.10,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Bilik air kedua
+Dialogue: 3,0:00:33.10,0:00:37.10,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Dapur luas
+Dialogue: 3,0:00:37.10,0:00:40.60,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Bilik tidur
+Dialogue: 3,0:00:40.60,0:00:43.40,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Tingkap besar · terang
+Dialogue: 3,0:00:43.40,0:00:45.90,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Sinki + pintu belakang
+Dialogue: 3,0:00:45.90,0:00:48.70,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Laman belakang
+Dialogue: 5,0:00:48.70,0:00:52.20,End,,0,0,0,,{\fad(250,0)}{\fs96\c&H00D7FF&}RM399K NETT{\r}\NFreehold · Malay Reserve\N20' × 70' · Teres 1 Tingkat\NSijangkang, Selangor\N\N{\fs60}DM untuk info & lawatan!
