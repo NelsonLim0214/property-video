@@ -11,7 +11,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from edit import ts
+import style as S
 
 LOCATION = "Sijangkang, Kuala Langat, Selangor"
 TITLE = "Teres 1 Tingkat · Sijangkang"
@@ -33,49 +33,39 @@ SEGMENTS = [
     (63.5, 69.8, "Laman belakang"),
 ]
 
-HOOK = "{\\fs120\\c&H00D7FF&}RM399K NETT{\\r}\\NFreehold · Malay Reserve\\N" + LOCATION.split(",")[0]
-END_CARD = (
-    "{\\fs96\\c&H00D7FF&}RM399K NETT{\\r}\\NFreehold · Malay Reserve\\N20' × 70' · Teres 1 Tingkat\\N"
-    "Sijangkang, Selangor\\N\\N{\\fs60}DM untuk info & lawatan!"
-)
-
-
 def build_ass(total, starts):
-    font = "WenQuanYi Zen Hei"
-    head = f"""[Script Info]
-ScriptType: v4.00+
-PlayResX: 1080
-PlayResY: 1920
-WrapStyle: 0
-ScaledBorderAndShadow: yes
-
-[V4+ Styles]
-Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Hi,{font},76,&H00000000,&H00000000,&H0000D7FF,&H0000D7FF,1,0,0,0,100,100,0,0,3,18,0,8,80,140,600,1
-Style: Hook,{font},70,&H00FFFFFF,&H00FFFFFF,&H00000000,&HA0000000,1,0,0,0,100,100,0,0,3,26,0,5,80,140,0,1
-Style: Title,{font},56,&H00FFFFFF,&H00FFFFFF,&H002A2AD0,&H002A2AD0,1,0,0,0,100,100,0,0,3,14,0,8,60,140,190,1
-Style: Loc,{font},44,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,1,0,0,0,100,100,0,0,1,4,1,8,60,140,300,1
-Style: Bar,{font},58,&H00FFFFFF,&H00FFFFFF,&H002A2AD0,&H002A2AD0,1,0,0,0,100,100,0,0,3,16,0,2,60,140,430,1
-Style: End,{font},72,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB0000000,1,0,0,0,100,100,0,0,3,30,0,5,80,140,0,1
-
-[Events]
-Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-"""
-    pop = "{\\fad(120,120)\\t(0,150,\\fscx108\\fscy108)\\t(150,300,\\fscx100\\fscy100)}"
     end_start = total - 3.5
     hook_end = starts[1]
     ev = [
-        f"Dialogue: 4,{ts(0)},{ts(hook_end)},Hook,,0,0,0,,{pop}{HOOK}",
-        f"Dialogue: 2,{ts(hook_end)},{ts(end_start)},Title,,0,0,0,,{TITLE}",
-        f"Dialogue: 2,{ts(hook_end)},{ts(end_start)},Loc,,0,0,0,,Lokasi: {LOCATION}",
-        f"Dialogue: 2,{ts(hook_end)},{ts(end_start)},Bar,,0,0,0,,{PRICE_BAR}",
+        # opening hook over the street shot
+        S.dim(0, hook_end),
+        S.price(0, hook_end, "RM399K", y=720),
+        f"Dialogue: 6,{S.ts(0.25)},{S.ts(hook_end)},Bar,,0,0,0,,{{\\an5\\pos(540,880)}}{S.bounce(3)}NETT · FREEHOLD",
+        S.big(0.5, hook_end, "Malay Reserve", 1010, extra=f"\\1c{S.YELLOW}"),
+        S.big(0.7, hook_end, "Teres 1 Tingkat · Sijangkang", 1100, extra="\\fs52"),
+        # persistent labels
+        f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Title,,0,0,0,,{{\\frz-1}}{TITLE}",
+        f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Loc,,0,0,0,,Lokasi: {LOCATION}",
+        f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Bar,,0,0,0,,{PRICE_BAR}",
     ]
+    k = 0
     for (s, e, txt), a in zip(SEGMENTS, starts):
         b = min(a + e - s, end_start)
         if txt and b > a:
-            ev.append(f"Dialogue: 3,{ts(a)},{ts(b)},Hi,,0,0,0,,{pop}{txt}")
-    ev.append(f"Dialogue: 5,{ts(end_start)},{ts(total)},End,,0,0,0,,{{\\fad(250,0)}}{END_CARD}")
-    return head + "\n".join(ev) + "\n"
+            ev.append(S.card(a, b, txt, k))
+            k += 1
+    # end card
+    ev += [
+        S.dim(end_start, total),
+        S.price(end_start, total, "RM399K", y=640),
+        S.big(end_start, total, "NETT · FREEHOLD", 800, extra=f"\\1c{S.YELLOW}\\fs70"),
+        S.big(end_start, total, "Malay Reserve", 900),
+        S.big(end_start, total, "20' × 70' · Teres 1 Tingkat", 990),
+        S.big(end_start, total, "Sijangkang, Selangor", 1080),
+        S.big(end_start, total, "DM untuk info & lawatan!", 1220, layer=6,
+              extra=f"\\fs58\\1c{S.BLACK}\\3c{S.YELLOW}\\bord18\\shad0\\t(300,600,\\fscx106\\fscy106)\\t(600,900,\\fscx100\\fscy100)"),
+    ]
+    return S.HEADER + "\n".join(ev) + "\n"
 
 
 def main():
@@ -96,7 +86,7 @@ def main():
         )
         labels += f"[v{i}]"
     parts.append(f"{labels}concat=n={len(SEGMENTS)}:v=1:a=0[vc]")
-    parts.append(f"[vc]eq=saturation=1.15:contrast=1.05:brightness=0.01,ass={ass}[vo]")
+    parts.append(f"[vc]eq=saturation=1.15:contrast=1.05:brightness=0.01,ass={ass}:fontsdir={S.FONTS_DIR}[vo]")
     cmd = [
         "ffmpeg", "-y", "-v", "error", "-i", src,
         "-f", "lavfi", "-t", f"{total:.3f}", "-i", "anullsrc=r=44100:cl=stereo",

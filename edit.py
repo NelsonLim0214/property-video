@@ -9,6 +9,8 @@ import sys
 import tempfile
 from pathlib import Path
 
+import style as S
+
 SPEED = 1.05  # slight speed-up, not noticeable, gets us under 60s
 
 LOCATION = "Bandar Rimbayu, Selangor"  # from the clip's GPS (+2.9599, +101.5518)
@@ -61,37 +63,35 @@ SUBS = [
 
 # Highlight cards: (source_start, source_end, text)
 HIGHLIGHTS = [
-    (0.0, 6.95, "✔ 土地宽 40尺\\N✔ 超大门廊"),
-    (7.2, 15.1, "建筑面积 29尺 × 32尺"),
-    (15.5, 21.2, "样板屋 Show Unit"),
-    (23.0, 26.5, "楼下有睡房 + 储藏室"),
+    (2.8, 6.95, "土地宽 40尺\\N超大门廊"),
+    (7.2, 15.1, "建筑面积\\N29尺 × 32尺"),
+    (15.5, 21.2, "样板屋"),
+    (23.0, 26.5, "楼下有睡房\\N+ 储藏室"),
     (32.7, 38.0, "楼下浴室 + 厨房"),
-    (39.1, 51.8, "✔ 后院 10尺\\N✔ 侧边 10尺\\N额外土地！"),
+    (39.1, 51.8, "后院 10尺\\N侧边 10尺\\N额外土地！"),
     (62.4, 65.6, "SPC 地板"),
     (70.3, 73.6, "楼上家庭厅"),
-    (76.0, 87.0, "每间房都有独立厕所"),
+    (76.0, 87.0, "每间房都有\\N独立厕所"),
     (87.0, 93.6, "4房 4厕"),
-    (94.0, 107.5, "主人房 + 独立浴室"),
+    (94.0, 107.5, "主人房\\N+ 独立浴室"),
 ]
-
-END_CARD = "马来保留地 Malay Reserve\\N4房4厕 · 40尺宽地\\N后院+侧边额外土地\\N私信了解更多 / DM untuk info"
 
 # Malay-only version (Malay Reserve land: buyers are Malay / Bumiputera)
 HIGHLIGHTS_MS = [
-    (0.0, 6.95, "✔ Tanah lebar 40 kaki\\N✔ Porch besar"),
-    (7.2, 15.1, "Keluasan binaan 29' × 32'"),
-    (15.5, 21.2, "Rumah contoh dah siap"),
-    (23.0, 26.5, "Bilik di bawah + stor"),
-    (32.7, 38.0, "Bilik air bawah + dapur"),
-    (39.1, 51.8, "✔ Tanah belakang 10'\\N✔ Tanah tepi 10'\\NTanah lebih!"),
+    (2.8, 6.95, "Tanah lebar 40 kaki\\NPorch besar"),
+    (7.2, 15.1, "Keluasan binaan\\N29' × 32'"),
+    (15.5, 21.2, "Rumah contoh\\Ndah siap"),
+    (23.0, 26.5, "Bilik di bawah\\N+ stor"),
+    (32.7, 38.0, "Bilik air + dapur"),
+    (39.1, 51.8, "Tanah lebih!\\NBelakang 10'\\NTepi 10'"),
     (62.4, 65.6, "Lantai SPC"),
-    (70.3, 73.6, "Family hall di atas"),
+    (70.3, 73.6, "Family hall\\Ndi atas"),
     (76.0, 87.0, "Setiap bilik ada\\Nbilik air sendiri"),
-    (87.0, 93.6, "4 Bilik · 4 Bilik Air"),
-    (94.0, 107.5, "Master room + bilik air"),
+    (87.0, 93.6, "4 Bilik\\N4 Bilik Air"),
+    (94.0, 107.5, "Master room\\N+ bilik air"),
 ]
 
-END_CARD_MS = "Tanah Rizab Melayu\\N4 Bilik · 4 Bilik Air\\NTanah lebar 40 kaki\\NDM untuk harga & lawatan!"
+HOOK_END = 2.8  # source seconds the opening hook stays up
 
 
 def src_to_out(t):
@@ -106,56 +106,46 @@ def src_to_out(t):
     return acc / SPEED
 
 
-def ts(t):
-    t = max(t, 0)
-    h = int(t // 3600)
-    m = int(t % 3600 // 60)
-    s = t % 60
-    return f"{h}:{m:02d}:{s:05.2f}"
-
-
 def build_ass(total, lang="zh"):
-    font = "WenQuanYi Zen Hei"
-    head = f"""[Script Info]
-ScriptType: v4.00+
-PlayResX: 1080
-PlayResY: 1920
-WrapStyle: 0
-ScaledBorderAndShadow: yes
-
-[V4+ Styles]
-Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Sub,{font},62,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,5,2,2,80,140,420,1
-Style: Hi,{font},70,&H00000000,&H00000000,&H0000D7FF,&H0000D7FF,1,0,0,0,100,100,0,0,3,18,0,8,80,140,560,1
-Style: Title,{font},56,&H00FFFFFF,&H00FFFFFF,&H002A2AD0,&H002A2AD0,1,0,0,0,100,100,0,0,3,14,0,8,60,140,190,1
-Style: Loc,{font},44,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,1,0,0,0,100,100,0,0,1,4,1,8,60,140,300,1
-Style: End,{font},72,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB0000000,1,0,0,0,100,100,0,0,3,30,0,5,80,140,0,1
-
-[Events]
-Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-"""
+    malay = lang == "ms"
+    Z = (lambda x: x) if malay else S.zh
     ev = []
     end_start = total - 3.0
-    malay = lang == "ms"
-    title, loc = (TITLE_MS, "Lokasi: ") if malay else (TITLE, "位置 Lokasi：")
-    highlights, end_card = (HIGHLIGHTS_MS, END_CARD_MS) if malay else (HIGHLIGHTS, END_CARD)
-    ev.append(f"Dialogue: 2,{ts(0)},{ts(end_start)},Title,,0,0,0,,{title}")
-    ev.append(f"Dialogue: 2,{ts(0)},{ts(end_start)},Loc,,0,0,0,,{loc}{LOCATION}")
+    hook_end = src_to_out(HOOK_END)
+
+    # opening hook
+    ev.append(S.price(0, hook_end, "SEMI-D", y=700))
+    ev.append(S.big(0, hook_end, Z("2 Tingkat · Malay Reserve" if malay else "双层半独立 · 马来保留地"), 860, extra="\\fs60"))
+    ev.append(S.big(0, hook_end, Z("4 Bilik · 4 Bilik Air" if malay else "4房 4厕 · 40尺宽地"), 960, extra=f"\\fs60\\1c{S.YELLOW}"))
+
+    title = TITLE_MS if malay else TITLE
+    loc = "Lokasi: " if malay else S.zh("位置 ") + "Lokasi: "
+    ev.append(f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Title,,0,0,0,,{{\\frz-1}}{Z(title)}")
+    ev.append(f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Loc,,0,0,0,,{loc}{LOCATION}")
+
     for s, e, ms, zh in SUBS:
         a, b = src_to_out(s), min(src_to_out(e), end_start)
         if b > a:
-            text = ms if malay else f"{zh}\\N{{\\fs48\\bord3\\c&H00E6FF&}}{ms}"
-            ev.append(f"Dialogue: 1,{ts(a)},{ts(b)},Sub,,0,0,0,,{text}")
-    for s, e, txt in highlights:
+            text = ms if malay else f"{S.zh(zh)}\\N{{\\fs46\\bord4\\c{S.YELLOW}}}{ms}"
+            ev.append(f"Dialogue: 1,{S.ts(a)},{S.ts(b)},Sub,,0,0,0,,{text}")
+
+    for i, (s, e, txt) in enumerate(HIGHLIGHTS_MS if malay else HIGHLIGHTS):
         a, b = src_to_out(s), min(src_to_out(e), end_start)
         if b > a:
-            ev.append(
-                f"Dialogue: 3,{ts(a)},{ts(b)},Hi,,0,0,0,,{{\\fad(120,120)\\t(0,150,\\fscx108\\fscy108)\\t(150,300,\\fscx100\\fscy100)}}{txt}"
-            )
-    ev.append(
-        f"Dialogue: 4,{ts(end_start)},{ts(total)},End,,0,0,0,,{{\\fad(250,0)}}{end_card}\\N{{\\fs50}}{loc}{LOCATION}"
-    )
-    return head + "\n".join(ev) + "\n"
+            ev.append(S.card(a, b, Z(txt), i))
+
+    # end card
+    ev.append(S.dim(end_start, total))
+    ev.append(S.price(end_start, total, "SEMI-D", y=640))
+    lines = (["Tanah Rizab Melayu", "4 Bilik · 4 Bilik Air", "Tanah lebar 40 kaki"] if malay
+             else [S.zh("马来保留地"), S.zh("4房4厕 · 40尺宽地"), S.zh("后院+侧边额外土地")])
+    for k, line in enumerate(lines):
+        ev.append(S.big(end_start, total, line, 820 + k * 90))
+    cta = "DM untuk info & lawatan!" if malay else S.zh("私信了解更多") + " / DM untuk info"
+    ev.append(S.big(end_start, total, cta, 1140, layer=6,
+                    extra=f"\\fs58\\1c{S.BLACK}\\3c{S.YELLOW}\\bord18\\shad0\\t(300,600,\\fscx106\\fscy106)\\t(600,900,\\fscx100\\fscy100)"))
+    ev.append(S.big(end_start, total, f"{loc}{LOCATION}", 1260, extra="\\fs42"))
+    return S.HEADER + "\n".join(ev) + "\n"
 
 
 def main():
@@ -183,7 +173,7 @@ def main():
     parts.append(f"{labels}concat=n={n}:v=1:a=1[vc][ac]")
     parts.append(
         f"[vc]setpts=PTS/{SPEED},eq=saturation=1.12:contrast=1.04,"
-        f"ass={ass}[vo]"
+        f"ass={ass}:fontsdir={S.FONTS_DIR}[vo]"
     )
     parts.append(f"[ac]atempo={SPEED},loudnorm=I=-14:TP=-1.5:LRA=11[ao]")
     cmd = [

@@ -1,0 +1,2 @@
+Anton, Poppins: SIL Open Font License 1.1 (Google Fonts, via @fontsource npm packages).
+Chinese text uses Noto Sans CJK SC Black (apt: fonts-noto-cjk-extra), also OFL.

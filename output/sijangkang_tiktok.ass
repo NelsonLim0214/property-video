@@ -7,28 +7,40 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Hi,WenQuanYi Zen Hei,76,&H00000000,&H00000000,&H0000D7FF,&H0000D7FF,1,0,0,0,100,100,0,0,3,18,0,8,80,140,600,1
-Style: Hook,WenQuanYi Zen Hei,70,&H00FFFFFF,&H00FFFFFF,&H00000000,&HA0000000,1,0,0,0,100,100,0,0,3,26,0,5,80,140,0,1
-Style: Title,WenQuanYi Zen Hei,56,&H00FFFFFF,&H00FFFFFF,&H002A2AD0,&H002A2AD0,1,0,0,0,100,100,0,0,3,14,0,8,60,140,190,1
-Style: Loc,WenQuanYi Zen Hei,44,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,1,0,0,0,100,100,0,0,1,4,1,8,60,140,300,1
-Style: Bar,WenQuanYi Zen Hei,58,&H00FFFFFF,&H00FFFFFF,&H002A2AD0,&H002A2AD0,1,0,0,0,100,100,0,0,3,16,0,2,60,140,430,1
-Style: End,WenQuanYi Zen Hei,72,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB0000000,1,0,0,0,100,100,0,0,3,30,0,5,80,140,0,1
+Style: Title,Poppins Black,54,&H00FFFFFF,&H00FFFFFF,&H004639E6,&H64000000,0,0,0,0,100,100,1,0,3,16,5,8,60,140,170,1
+Style: Loc,Poppins ExtraBold,40,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,4,3,8,60,140,280,1
+Style: Hi,Poppins Black,80,&H00000000,&H00000000,&H000AD6FF,&H78000000,0,0,0,0,100,100,0,0,3,20,8,8,70,140,560,1
+Style: Sub,Poppins ExtraBold,62,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,6,4,2,70,140,420,1
+Style: Price,Anton,250,&H000AD6FF,&H000AD6FF,&H00000000,&H004639E6,0,0,0,0,100,100,2,0,1,10,10,5,40,100,0,1
+Style: Big,Poppins Black,74,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,7,5,5,60,120,0,1
+Style: Bar,Anton,74,&H00FFFFFF,&H00FFFFFF,&H004639E6,&H64000000,0,0,0,0,100,100,2,0,3,18,6,2,60,140,400,1
+Style: Dim,Poppins Black,10,&H00000000,&H00000000,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 4,0:00:00.00,0:00:05.50,Hook,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}{\fs120\c&H00D7FF&}RM399K NETT{\r}\NFreehold · Malay Reserve\NSijangkang
-Dialogue: 2,0:00:05.50,0:00:48.70,Title,,0,0,0,,Teres 1 Tingkat · Sijangkang
+Dialogue: 4,0:00:00.00,0:00:05.50,Dim,,0,0,0,,{\fad(200,0)\pos(0,0)\1a&H70&\p1}m 0 0 l 1080 0 1080 1920 0 1920{\p0}
+Dialogue: 6,0:00:00.00,0:00:05.50,Price,,0,0,0,,{\pos(540,720)}{\fad(80,150)\frz-4\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}RM399K
+Dialogue: 6,0:00:00.25,0:00:05.50,Bar,,0,0,0,,{\an5\pos(540,880)}{\fad(80,150)\frz3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}NETT · FREEHOLD
+Dialogue: 5,0:00:00.50,0:00:05.50,Big,,0,0,0,,{\pos(540,1010)\fad(250,0)\1c&H000AD6FF}Malay Reserve
+Dialogue: 5,0:00:00.70,0:00:05.50,Big,,0,0,0,,{\pos(540,1100)\fad(250,0)\fs52}Teres 1 Tingkat · Sijangkang
+Dialogue: 2,0:00:05.50,0:00:48.70,Title,,0,0,0,,{\frz-1}Teres 1 Tingkat · Sijangkang
 Dialogue: 2,0:00:05.50,0:00:48.70,Loc,,0,0,0,,Lokasi: Sijangkang, Kuala Langat, Selangor
 Dialogue: 2,0:00:05.50,0:00:48.70,Bar,,0,0,0,,RM399K NETT · Freehold · 20' × 70'
-Dialogue: 3,0:00:05.50,0:00:13.00,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Saiz tanah 20' × 70'\NPorch luas
-Dialogue: 3,0:00:13.00,0:00:18.50,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Ruang tamu luas
-Dialogue: 3,0:00:18.50,0:00:23.00,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Bilik tidur
-Dialogue: 3,0:00:23.00,0:00:25.80,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Bilik air
-Dialogue: 3,0:00:25.80,0:00:30.30,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Bilik tidur
-Dialogue: 3,0:00:30.30,0:00:33.10,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Bilik air kedua
-Dialogue: 3,0:00:33.10,0:00:37.10,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Dapur luas
-Dialogue: 3,0:00:37.10,0:00:40.60,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Bilik tidur
-Dialogue: 3,0:00:40.60,0:00:43.40,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Tingkap besar · terang
-Dialogue: 3,0:00:43.40,0:00:45.90,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Sinki + pintu belakang
-Dialogue: 3,0:00:45.90,0:00:48.70,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}Laman belakang
-Dialogue: 5,0:00:48.70,0:00:52.20,End,,0,0,0,,{\fad(250,0)}{\fs96\c&H00D7FF&}RM399K NETT{\r}\NFreehold · Malay Reserve\N20' × 70' · Teres 1 Tingkat\NSijangkang, Selangor\N\N{\fs60}DM untuk info & lawatan!
+Dialogue: 3,0:00:05.50,0:00:13.00,Hi,,0,0,0,,{\fad(80,150)\frz-3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}Saiz tanah 20' × 70'\NPorch luas
+Dialogue: 3,0:00:13.00,0:00:18.50,Hi,,0,0,0,,{\fad(80,150)\frz2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}Ruang tamu luas
+Dialogue: 3,0:00:18.50,0:00:23.00,Hi,,0,0,0,,{\fad(80,150)\frz-2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}Bilik tidur
+Dialogue: 3,0:00:23.00,0:00:25.80,Hi,,0,0,0,,{\fad(80,150)\frz3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H004639E6\1c&H00FFFFFF}Bilik air
+Dialogue: 3,0:00:25.80,0:00:30.30,Hi,,0,0,0,,{\fad(80,150)\frz-3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}Bilik tidur
+Dialogue: 3,0:00:30.30,0:00:33.10,Hi,,0,0,0,,{\fad(80,150)\frz2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}Bilik air kedua
+Dialogue: 3,0:00:33.10,0:00:37.10,Hi,,0,0,0,,{\fad(80,150)\frz-2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}Dapur luas
+Dialogue: 3,0:00:37.10,0:00:40.60,Hi,,0,0,0,,{\fad(80,150)\frz3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H004639E6\1c&H00FFFFFF}Bilik tidur
+Dialogue: 3,0:00:40.60,0:00:43.40,Hi,,0,0,0,,{\fad(80,150)\frz-3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}Tingkap besar · terang
+Dialogue: 3,0:00:43.40,0:00:45.90,Hi,,0,0,0,,{\fad(80,150)\frz2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}Sinki + pintu belakang
+Dialogue: 3,0:00:45.90,0:00:48.70,Hi,,0,0,0,,{\fad(80,150)\frz-2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}Laman belakang
+Dialogue: 4,0:00:48.70,0:00:52.20,Dim,,0,0,0,,{\fad(200,0)\pos(0,0)\1a&H70&\p1}m 0 0 l 1080 0 1080 1920 0 1920{\p0}
+Dialogue: 6,0:00:48.70,0:00:52.20,Price,,0,0,0,,{\pos(540,640)}{\fad(80,150)\frz-4\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}RM399K
+Dialogue: 5,0:00:48.70,0:00:52.20,Big,,0,0,0,,{\pos(540,800)\fad(250,0)\1c&H000AD6FF\fs70}NETT · FREEHOLD
+Dialogue: 5,0:00:48.70,0:00:52.20,Big,,0,0,0,,{\pos(540,900)\fad(250,0)}Malay Reserve
+Dialogue: 5,0:00:48.70,0:00:52.20,Big,,0,0,0,,{\pos(540,990)\fad(250,0)}20' × 70' · Teres 1 Tingkat
+Dialogue: 5,0:00:48.70,0:00:52.20,Big,,0,0,0,,{\pos(540,1080)\fad(250,0)}Sijangkang, Selangor
+Dialogue: 6,0:00:48.70,0:00:52.20,Big,,0,0,0,,{\pos(540,1220)\fad(250,0)\fs58\1c&H00000000\3c&H000AD6FF\bord18\shad0\t(300,600,\fscx106\fscy106)\t(600,900,\fscx100\fscy100)}DM untuk info & lawatan!
