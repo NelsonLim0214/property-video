@@ -9,11 +9,15 @@ import sys
 import tempfile
 from pathlib import Path
 
-import style as S
+import re
+
+import graphics as G
+from compose import Layer, dim_layer, render
 
 SPEED = 1.05  # slight speed-up, not noticeable, gets us under 60s
 
-LOCATION = "Bandar Rimbayu, Selangor"  # from the clip's GPS (+2.9599, +101.5518)
+LOCATION = "Bandar Rimbayu, Selangor"  # guessed from GPS (+2.9599, +101.5518) — CONFIRM
+LOC1, LOC2 = "BANDAR RIMBAYU", "SELANGOR"
 TITLE = "双层半独立 · 马来保留地"
 TITLE_MS = "Semi-D · Malay Reserve"
 
@@ -61,37 +65,67 @@ SUBS = [
     (104.5, 107.5, "Master room ada tandas sendiri.", "主人房有独立浴室"),
 ]
 
-# Highlight cards: (source_start, source_end, text)
+# Highlight cards: (source_start, source_end, text). The first scene is the hook.
 HIGHLIGHTS = [
-    (2.8, 6.95, "土地宽 40尺\\N超大门廊"),
-    (7.2, 15.1, "建筑面积\\N29尺 × 32尺"),
+    (7.2, 15.1, "建筑面积\n29尺 × 32尺"),
     (15.5, 21.2, "样板屋"),
-    (23.0, 26.5, "楼下有睡房\\N+ 储藏室"),
+    (23.0, 26.5, "楼下有睡房\n+ 储藏室"),
     (32.7, 38.0, "楼下浴室 + 厨房"),
-    (39.1, 51.8, "后院 10尺\\N侧边 10尺\\N额外土地！"),
+    (39.1, 51.8, "后院 10尺\n侧边 10尺\n额外土地！"),
     (62.4, 65.6, "SPC 地板"),
     (70.3, 73.6, "楼上家庭厅"),
-    (76.0, 87.0, "每间房都有\\N独立厕所"),
+    (76.0, 87.0, "每间房都有\n独立厕所"),
     (87.0, 93.6, "4房 4厕"),
-    (94.0, 107.5, "主人房\\N+ 独立浴室"),
+    (94.0, 107.5, "主人房\n+ 独立浴室"),
 ]
 
 # Malay-only version (Malay Reserve land: buyers are Malay / Bumiputera)
 HIGHLIGHTS_MS = [
-    (2.8, 6.95, "Tanah lebar 40 kaki\\NPorch besar"),
-    (7.2, 15.1, "Keluasan binaan\\N29' × 32'"),
-    (15.5, 21.2, "Rumah contoh\\Ndah siap"),
-    (23.0, 26.5, "Bilik di bawah\\N+ stor"),
+    (7.2, 15.1, "Keluasan binaan\n29' × 32'"),
+    (15.5, 21.2, "Rumah contoh\ndah siap"),
+    (23.0, 26.5, "Bilik di bawah\n+ stor"),
     (32.7, 38.0, "Bilik air + dapur"),
-    (39.1, 51.8, "Tanah lebih!\\NBelakang 10'\\NTepi 10'"),
+    (39.1, 51.8, "Tanah lebih!\nBelakang 10'\nTepi 10'"),
     (62.4, 65.6, "Lantai SPC"),
-    (70.3, 73.6, "Family hall\\Ndi atas"),
-    (76.0, 87.0, "Setiap bilik ada\\Nbilik air sendiri"),
-    (87.0, 93.6, "4 Bilik\\N4 Bilik Air"),
-    (94.0, 107.5, "Master room\\N+ bilik air"),
+    (70.3, 73.6, "Family hall\ndi atas"),
+    (76.0, 87.0, "Setiap bilik ada\nbilik air sendiri"),
+    (87.0, 93.6, "4 Bilik\n4 Bilik Air"),
+    (94.0, 107.5, "Master room\n+ bilik air"),
 ]
 
-HOOK_END = 2.8  # source seconds the opening hook stays up
+HOOK_END = 6.95  # source seconds: hook covers the first scene
+
+CARD_STYLES = [
+    dict(bg=G.NAVY, fg=G.WHITE),
+    dict(bg=G.YELLOW, fg=G.NAVY),
+    dict(bg=G.WHITE, fg=G.NAVY, border=(G.RED, 8)),
+]
+
+YEL = "&H003CC9FF"
+KEY_MS = re.compile(r"(\d+|kaki|semi-D|SPC|porch|tanah|bilik|tandas|master room|family hall|"
+                    r"showroom|cantik|kitchen|stor|double storey)", re.I)
+KEY_ZH = re.compile(r"(\d+尺?|\d+[房厕]|样板屋|门廊|储藏室|厨房|浴室|厕所|地板|家庭厅|主人房|半独立式洋房|有地)")
+
+
+def hl(text, rx):
+    return rx.sub(lambda m: f"{{\\c{YEL}}}{m.group(0)}{{\\c&H00FFFFFF&}}", text)
+
+
+ASS_HEAD = """[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter Black,78,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,-1,0,1,7,3,2,70,110,400,1
+Style: SubZH,Noto Sans CJK SC Black,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,0,0,1,7,3,2,70,110,400,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+"""
 
 
 def src_to_out(t):
@@ -106,90 +140,87 @@ def src_to_out(t):
     return acc / SPEED
 
 
-def build_ass(total, lang="zh"):
-    malay = lang == "ms"
-    Z = (lambda x: x) if malay else S.zh
-    ev = []
+def build_ass(total, malay):
     end_start = total - 3.0
-    hook_end = src_to_out(HOOK_END)
-
-    # opening hook
-    ev.append(S.price(0, hook_end, "SEMI-D", y=620))
-    hook = (["2 Tingkat", "Malay Reserve", "4 Bilik · 4 Bilik Air"] if malay
-            else ["双层半独立", "马来保留地", "4房4厕 · 40尺宽地"])
-    for k, line in enumerate(hook):
-        col = f"\\1c{S.YELLOW}" if k == 1 else ""
-        ev.append(S.big(0, hook_end, Z(line), 830 + k * 135, extra=col))
-
-    title = TITLE_MS if malay else TITLE
-    loc = "Lokasi: " if malay else S.zh("位置 ") + "Lokasi: "
-    ev.append(f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Title,,0,0,0,,{Z(title)}")
-    ev.append(f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Loc,,0,0,0,,{loc}{LOCATION}")
-
+    ev = []
     for s, e, ms, zh in SUBS:
         a, b = src_to_out(s), min(src_to_out(e), end_start)
-        if b > a:
-            text = ms if malay else f"{S.zh(zh)}\\N{{\\fs60\\bord5\\c{S.YELLOW}}}{ms}"
-            ev.append(f"Dialogue: 1,{S.ts(a)},{S.ts(b)},Sub,,0,0,0,,{text}")
+        if b <= a:
+            continue
+        if malay:
+            ev.append(f"Dialogue: 1,{G_ts(a)},{G_ts(b)},Sub,,0,0,0,,{hl(ms, KEY_MS)}")
+        else:
+            ev.append(f"Dialogue: 1,{G_ts(a)},{G_ts(b)},SubZH,,0,0,0,,"
+                      f"{hl(zh, KEY_ZH)}\\N{{\\fnInter Black\\fs52\\bord5\\c&H00E0E0E0&}}{ms}")
+    return ASS_HEAD + "\n".join(ev) + "\n"
 
-    for i, (s, e, txt) in enumerate(HIGHLIGHTS_MS if malay else HIGHLIGHTS):
+
+def G_ts(t):
+    t = max(t, 0)
+    return f"{int(t // 3600)}:{int(t % 3600 // 60):02d}:{t % 60:05.2f}"
+
+
+def build_layers(total, malay):
+    hook_end = src_to_out(HOOK_END)
+    end_start = total - 3.0
+    L = [dim_layer(0, hook_end, 130)]
+    if malay:
+        hook = [G.pill("RUMAH CONTOH SIAP · MALAY RESERVE", 46, G.YELLOW, G.NAVY),
+                G.location_card(LOC1, LOC2),
+                G.pill("Semi-D 2 Tingkat", 54, G.NAVY, G.WHITE),
+                (G.headline("TANAH LEBAR", 84), 36),
+                G.headline("40 KAKI", 250, G.GREEN),
+                G.divider(620),
+                G.headline("4 BILIK · 4 BILIK AIR", 80)]
+    else:
+        hook = [G.pill("样板屋已建好 · 马来保留地", 50, G.YELLOW, G.NAVY),
+                G.location_card(LOC1, LOC2),
+                G.pill("双层半独立洋房", 56, G.NAVY, G.WHITE),
+                (G.headline("土地宽", 76), 24),
+                G.headline("40尺", 190, G.GREEN),
+                G.divider(560),
+                G.headline("4房 · 4厕", 72)]
+    L += G.stack(hook, top=210, t0=0, t1=hook_end, gap=20, Layer=Layer)
+
+    top_pill = G.loc_pill(LOCATION, 48)
+    L.append(Layer(top_pill, 160 - top_pill.info["pad"], hook_end, end_start))
+    info = G.pill("4 Bilik · 4 Bilik Air · Malay Reserve" if malay else "4房4厕 · 马来保留地",
+                  48, G.GREEN, G.WHITE)
+    L.append(Layer(info, 1215 - info.info["pad"], hook_end, end_start))
+
+    for k, (s, e, txt) in enumerate(HIGHLIGHTS_MS if malay else HIGHLIGHTS):
         a, b = src_to_out(s), min(src_to_out(e), end_start)
         if b > a:
-            ev.append(S.card(a, b, Z(txt), i))
+            img = G.pill(txt, 96, pad=(54, 26), **CARD_STYLES[k % len(CARD_STYLES)])
+            L.append(Layer(img, 330 - img.info["pad"], a, b))
 
-    # end card
-    ev.append(S.dim(end_start, total))
-    ev.append(S.price(end_start, total, "SEMI-D", y=520))
-    lines = (["Tanah Rizab Melayu", "4 Bilik · 4 Bilik Air", "Tanah lebar 40 kaki"] if malay
-             else [S.zh("马来保留地"), S.zh("4房4厕 · 40尺宽地"), S.zh("后院+侧边额外土地")])
-    for k, line in enumerate(lines):
-        ev.append(S.big(end_start, total, line, 740 + k * 125, extra="\\fs100"))
-    cta = "DM untuk info & lawatan!" if malay else S.zh("私信了解更多") + " / DM"
-    ev.append(S.big(end_start, total, cta, 1150, layer=6,
-                    extra=f"\\fs80\\1c{S.BLACK}\\3c{S.YELLOW}\\bord20\\shad0"))
-    ev.append(S.big(end_start, total, f"{loc}{LOCATION}", 1290, extra="\\fs56"))
-    return S.HEADER + "\n".join(ev) + "\n"
+    L.append(dim_layer(end_start, total, 165))
+    if malay:
+        end = [G.headline("SEMI-D 2 TINGKAT", 76),
+               G.headline("TANAH 40'", 240, G.GREEN),
+               G.divider(620),
+               G.headline("4 BILIK · 4 BILIK AIR", 80),
+               G.headline("TANAH LEBIH BELAKANG & TEPI", 56, G.YELLOW),
+               (G.pill("DM UNTUK LAWATAN!", 64, G.YELLOW, G.NAVY, pad=(50, 22)), 30),
+               G.loc_pill(LOCATION, 46)]
+    else:
+        end = [G.headline("双层半独立洋房", 76),
+               G.headline("40尺宽地", 220, G.GREEN),
+               G.divider(620),
+               G.headline("4房 · 4厕 · 马来保留地", 72),
+               G.headline("后院 + 侧边额外土地", 62, G.YELLOW),
+               (G.pill("私信了解更多", 64, G.YELLOW, G.NAVY, pad=(50, 22)), 30),
+               G.loc_pill(LOCATION, 46)]
+    L += G.stack(end, top=420, t0=end_start, t1=total, gap=24, Layer=Layer)
+    return L
 
 
 def main():
     src, out = sys.argv[1], sys.argv[2]
-    lang = sys.argv[3] if len(sys.argv) > 3 else "zh"  # "zh" (中文+BM) or "ms" (BM only)
+    malay = (sys.argv[3] if len(sys.argv) > 3 else "zh") == "ms"
     total = sum(e - s for s, e in SEGMENTS) / SPEED
-    tmp = Path(tempfile.mkdtemp())
-    ass = tmp / "subs.ass"
-    ass.write_text(build_ass(total, lang), encoding="utf-8")
-
-    parts, labels = [], ""
-    fade = 0.06
-    for i, (s, e) in enumerate(SEGMENTS):
-        d = e - s
-        parts.append(
-            f"[0:v]trim={s}:{e},setpts=PTS-STARTPTS,"
-            f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,setsar=1[v{i}]"
-        )
-        parts.append(
-            f"[0:a]atrim={s}:{e},asetpts=PTS-STARTPTS,"
-            f"afade=t=in:d={fade},afade=t=out:st={d - fade:.3f}:d={fade}[a{i}]"
-        )
-        labels += f"[v{i}][a{i}]"
-    n = len(SEGMENTS)
-    parts.append(f"{labels}concat=n={n}:v=1:a=1[vc][ac]")
-    parts.append(
-        f"[vc]setpts=PTS/{SPEED},eq=saturation=1.12:contrast=1.04,"
-        f"ass={ass}:fontsdir={S.FONTS_DIR}[vo]"
-    )
-    parts.append(f"[ac]atempo={SPEED},loudnorm=I=-14:TP=-1.5:LRA=11[ao]")
-    cmd = [
-        "ffmpeg", "-y", "-v", "error", "-stats", "-i", src,
-        "-filter_complex", ";".join(parts),
-        "-map", "[vo]", "-map", "[ao]",
-        "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-profile:v", "high",
-        "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-ar", "44100",
-        "-movflags", "+faststart", out,
-    ]
+    total = render(src, out, SEGMENTS, build_layers(total, malay), build_ass(total, malay), speed=SPEED)
     print(f"Output length ≈ {total:.1f}s")
-    subprocess.run(cmd, check=True)
-    Path(out).with_suffix(".ass").write_text(ass.read_text(encoding="utf-8"), encoding="utf-8")
 
 
 if __name__ == "__main__":

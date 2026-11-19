@@ -1,3 +1,4 @@
+Inter: SIL Open Font License 1.1 (via @fontsource/inter). Used by graphics.py and subtitles.
 Anton, Poppins, Baloo 2, Fredoka, Luckiest Guy, Bebas Neue: SIL Open Font License 1.1
 (Google Fonts, via @fontsource npm packages). Luckiest Guy: Apache 2.0.
 Chinese text uses Noto Sans CJK SC Black (apt: fonts-noto-cjk-extra), OFL.

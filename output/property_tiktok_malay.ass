@@ -7,59 +7,29 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Title,Baloo 2 ExtraBold,80,&H00FFFFFF,&H00FFFFFF,&H004639E6,&H64000000,0,0,0,0,100,100,0,0,3,18,5,8,60,120,160,1
-Style: Loc,Baloo 2 ExtraBold,58,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,5,3,8,60,120,290,1
-Style: Hi,Baloo 2 ExtraBold,124,&H00000000,&H00000000,&H000AD6FF,&H78000000,0,0,0,0,100,100,0,0,3,22,8,8,60,120,560,1
-Style: Sub,Baloo 2 ExtraBold,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,7,4,2,60,120,400,1
-Style: Price,Baloo 2 ExtraBold,340,&H000AD6FF,&H000AD6FF,&H00000000,&H004639E6,0,0,0,0,100,100,0,0,1,12,10,5,40,100,0,1
-Style: Big,Baloo 2 ExtraBold,112,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,8,5,5,50,100,0,1
-Style: Bar,Baloo 2 ExtraBold,100,&H00FFFFFF,&H00FFFFFF,&H004639E6,&H64000000,0,0,0,0,100,100,0,0,3,20,6,2,60,120,380,1
-Style: Dim,Baloo 2 ExtraBold,10,&H00000000,&H00000000,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1
+Style: Sub,Inter Black,78,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,-1,0,1,7,3,2,70,110,400,1
+Style: SubZH,Noto Sans CJK SC Black,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,0,0,0,0,100,100,0,0,1,7,3,2,70,110,400,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 6,0:00:00.00,0:00:02.67,Price,,0,0,0,,{\pos(540,620)}{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}SEMI-D
-Dialogue: 5,0:00:00.00,0:00:02.67,Big,,0,0,0,,{\pos(540,830)\fad(250,0)}2 Tingkat
-Dialogue: 5,0:00:00.00,0:00:02.67,Big,,0,0,0,,{\pos(540,965)\fad(250,0)\1c&H000AD6FF}Malay Reserve
-Dialogue: 5,0:00:00.00,0:00:02.67,Big,,0,0,0,,{\pos(540,1100)\fad(250,0)}4 Bilik · 4 Bilik Air
-Dialogue: 2,0:00:02.67,0:00:56.67,Title,,0,0,0,,Semi-D · Malay Reserve
-Dialogue: 2,0:00:02.67,0:00:56.67,Loc,,0,0,0,,Lokasi: Bandar Rimbayu, Selangor
-Dialogue: 1,0:00:00.00,0:00:03.05,Sub,,0,0,0,,Rumah ini lebar 40 kaki.
-Dialogue: 1,0:00:03.14,0:00:06.62,Sub,,0,0,0,,Sudah ada rumah contoh, porch depan memang besar.
-Dialogue: 1,0:00:06.71,0:00:09.29,Sub,,0,0,0,,Build-up rumah 29 kaki,
-Dialogue: 1,0:00:09.86,0:00:14.14,Sub,,0,0,0,,panjangnya 32 kaki.
-Dialogue: 1,0:00:14.24,0:00:17.00,Sub,,0,0,0,,Ini showroom dia.
-Dialogue: 1,0:00:17.00,0:00:18.52,Sub,,0,0,0,,Memang cantik!
-Dialogue: 1,0:00:18.71,0:00:21.86,Sub,,0,0,0,,Bawah ada satu bilik dan stor.
-Dialogue: 1,0:00:21.95,0:00:23.38,Sub,,0,0,0,,Bilik air.
-Dialogue: 1,0:00:23.48,0:00:25.00,Sub,,0,0,0,,Tandas.
-Dialogue: 1,0:00:25.10,0:00:26.90,Sub,,0,0,0,,Ini kitchen dia.
-Dialogue: 1,0:00:27.00,0:00:29.67,Sub,,0,0,0,,Ini rumah semi-D.
-Dialogue: 1,0:00:29.95,0:00:33.67,Sub,,0,0,0,,Belakang rumah ada tanah, tepi pun ada tanah.
-Dialogue: 1,0:00:33.67,0:00:35.19,Sub,,0,0,0,,Belakang 10 kaki.
-Dialogue: 1,0:00:35.19,0:00:37.76,Sub,,0,0,0,,Tepi pula ada 10 kaki tanah.
-Dialogue: 1,0:00:37.86,0:00:40.81,Sub,,0,0,0,,Lantai SPC disediakan.
-Dialogue: 1,0:00:40.90,0:00:43.95,Sub,,0,0,0,,Atas ada satu family hall.
-Dialogue: 1,0:00:44.05,0:00:46.33,Sub,,0,0,0,,Bilik kedua, tandas sendiri.
-Dialogue: 1,0:00:46.43,0:00:48.33,Sub,,0,0,0,,Bilik ketiga pun ada tandas sendiri.
-Dialogue: 1,0:00:48.33,0:00:51.48,Sub,,0,0,0,,Jadi rumah ini 4 bilik, 4 tandas,
-Dialogue: 1,0:00:51.48,0:00:54.62,Sub,,0,0,0,,double storey semi-D.
-Dialogue: 1,0:00:54.71,0:00:56.67,Sub,,0,0,0,,Okey, master room.
-Dialogue: 3,0:00:02.67,0:00:06.62,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}Tanah lebar 40 kaki\NPorch besar
-Dialogue: 3,0:00:06.62,0:00:14.14,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}Keluasan binaan\N29' × 32'
-Dialogue: 3,0:00:14.14,0:00:18.52,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}Rumah contoh\Ndah siap
-Dialogue: 3,0:00:18.52,0:00:21.86,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H004639E6\1c&H00FFFFFF}Bilik di bawah\N+ stor
-Dialogue: 3,0:00:21.86,0:00:26.90,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}Bilik air + dapur
-Dialogue: 3,0:00:26.90,0:00:37.76,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}Tanah lebih!\NBelakang 10'\NTepi 10'
-Dialogue: 3,0:00:37.76,0:00:40.81,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}Lantai SPC
-Dialogue: 3,0:00:40.81,0:00:43.95,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H004639E6\1c&H00FFFFFF}Family hall\Ndi atas
-Dialogue: 3,0:00:43.95,0:00:48.33,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}Setiap bilik ada\Nbilik air sendiri
-Dialogue: 3,0:00:48.33,0:00:54.62,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}4 Bilik\N4 Bilik Air
-Dialogue: 3,0:00:54.62,0:00:56.67,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}Master room\N+ bilik air
-Dialogue: 4,0:00:56.67,0:00:59.67,Dim,,0,0,0,,{\fad(200,0)\pos(0,0)\1a&H70&\p1}m 0 0 l 1080 0 1080 1920 0 1920{\p0}
-Dialogue: 6,0:00:56.67,0:00:59.67,Price,,0,0,0,,{\pos(540,520)}{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}SEMI-D
-Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,740)\fad(250,0)\fs100}Tanah Rizab Melayu
-Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,865)\fad(250,0)\fs100}4 Bilik · 4 Bilik Air
-Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,990)\fad(250,0)\fs100}Tanah lebar 40 kaki
-Dialogue: 6,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,1150)\fad(250,0)\fs80\1c&H00000000\3c&H000AD6FF\bord20\shad0}DM untuk info & lawatan!
-Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,1290)\fad(250,0)\fs56}Lokasi: Bandar Rimbayu, Selangor
+Dialogue: 1,0:00:00.00,0:00:03.05,Sub,,0,0,0,,Rumah ini lebar {\c&H003CC9FF}40{\c&H00FFFFFF&} {\c&H003CC9FF}kaki{\c&H00FFFFFF&}.
+Dialogue: 1,0:00:03.14,0:00:06.62,Sub,,0,0,0,,Sudah ada rumah contoh, {\c&H003CC9FF}porch{\c&H00FFFFFF&} depan memang besar.
+Dialogue: 1,0:00:06.71,0:00:09.29,Sub,,0,0,0,,Build-up rumah {\c&H003CC9FF}29{\c&H00FFFFFF&} {\c&H003CC9FF}kaki{\c&H00FFFFFF&},
+Dialogue: 1,0:00:09.86,0:00:14.14,Sub,,0,0,0,,panjangnya {\c&H003CC9FF}32{\c&H00FFFFFF&} {\c&H003CC9FF}kaki{\c&H00FFFFFF&}.
+Dialogue: 1,0:00:14.24,0:00:17.00,Sub,,0,0,0,,Ini {\c&H003CC9FF}showroom{\c&H00FFFFFF&} dia.
+Dialogue: 1,0:00:17.00,0:00:18.52,Sub,,0,0,0,,Memang {\c&H003CC9FF}cantik{\c&H00FFFFFF&}!
+Dialogue: 1,0:00:18.71,0:00:21.86,Sub,,0,0,0,,Bawah ada satu {\c&H003CC9FF}bilik{\c&H00FFFFFF&} dan {\c&H003CC9FF}stor{\c&H00FFFFFF&}.
+Dialogue: 1,0:00:21.95,0:00:23.38,Sub,,0,0,0,,{\c&H003CC9FF}Bilik{\c&H00FFFFFF&} air.
+Dialogue: 1,0:00:23.48,0:00:25.00,Sub,,0,0,0,,{\c&H003CC9FF}Tandas{\c&H00FFFFFF&}.
+Dialogue: 1,0:00:25.10,0:00:26.90,Sub,,0,0,0,,Ini {\c&H003CC9FF}kitchen{\c&H00FFFFFF&} dia.
+Dialogue: 1,0:00:27.00,0:00:29.67,Sub,,0,0,0,,Ini rumah {\c&H003CC9FF}semi-D{\c&H00FFFFFF&}.
+Dialogue: 1,0:00:29.95,0:00:33.67,Sub,,0,0,0,,Belakang rumah ada {\c&H003CC9FF}tanah{\c&H00FFFFFF&}, tepi pun ada {\c&H003CC9FF}tanah{\c&H00FFFFFF&}.
+Dialogue: 1,0:00:33.67,0:00:35.19,Sub,,0,0,0,,Belakang {\c&H003CC9FF}10{\c&H00FFFFFF&} {\c&H003CC9FF}kaki{\c&H00FFFFFF&}.
+Dialogue: 1,0:00:35.19,0:00:37.76,Sub,,0,0,0,,Tepi pula ada {\c&H003CC9FF}10{\c&H00FFFFFF&} {\c&H003CC9FF}kaki{\c&H00FFFFFF&} {\c&H003CC9FF}tanah{\c&H00FFFFFF&}.
+Dialogue: 1,0:00:37.86,0:00:40.81,Sub,,0,0,0,,Lantai {\c&H003CC9FF}SPC{\c&H00FFFFFF&} disediakan.
+Dialogue: 1,0:00:40.90,0:00:43.95,Sub,,0,0,0,,Atas ada satu {\c&H003CC9FF}family hall{\c&H00FFFFFF&}.
+Dialogue: 1,0:00:44.05,0:00:46.33,Sub,,0,0,0,,{\c&H003CC9FF}Bilik{\c&H00FFFFFF&} kedua, {\c&H003CC9FF}tandas{\c&H00FFFFFF&} sendiri.
+Dialogue: 1,0:00:46.43,0:00:48.33,Sub,,0,0,0,,{\c&H003CC9FF}Bilik{\c&H00FFFFFF&} ketiga pun ada {\c&H003CC9FF}tandas{\c&H00FFFFFF&} sendiri.
+Dialogue: 1,0:00:48.33,0:00:51.48,Sub,,0,0,0,,Jadi rumah ini {\c&H003CC9FF}4{\c&H00FFFFFF&} {\c&H003CC9FF}bilik{\c&H00FFFFFF&}, {\c&H003CC9FF}4{\c&H00FFFFFF&} {\c&H003CC9FF}tandas{\c&H00FFFFFF&},
+Dialogue: 1,0:00:51.48,0:00:54.62,Sub,,0,0,0,,{\c&H003CC9FF}double storey{\c&H00FFFFFF&} {\c&H003CC9FF}semi-D{\c&H00FFFFFF&}.
+Dialogue: 1,0:00:54.71,0:00:56.67,Sub,,0,0,0,,Okey, {\c&H003CC9FF}master room{\c&H00FFFFFF&}.
