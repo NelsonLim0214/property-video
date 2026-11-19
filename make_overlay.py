@@ -172,6 +172,65 @@ def room_label(text):
     return shadowed(img, offset=(0, 6), blur=10, opacity=140)
 
 
+def phone_icon(size, bg, fg):
+    img = Image.new("RGBA", (size * 4, size * 4), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    S = size * 4
+    d.ellipse((0, 0, S - 1, S - 1), fill=bg)
+    # handset: thick arc with rounded ends
+    w = int(S * 0.13)
+    box = (S * 0.22, S * 0.22, S * 0.78, S * 0.78)
+    d.arc(box, 100, 260, fill=fg, width=w)
+    import math as _m
+    cx, cy, r = S / 2, S / 2, (box[2] - box[0]) / 2 - w / 2
+    for ang in (100, 260):
+        x, y = cx + r * _m.cos(_m.radians(ang)), cy + r * _m.sin(_m.radians(ang))
+        e = w * 0.95
+        d.ellipse((x - e, y - e, x + e, y + e), fill=fg)
+    img = img.rotate(-45, resample=Image.BICUBIC)
+    return img.resize((size, size), Image.LANCZOS)
+
+
+def phone_card():
+    f_l = font(BLACK, 40)
+    f_n = font(HEAVY, 92)
+    l, n = "HUBUNGI NELSON", "019-8149687"
+    lw, lh, lb = text_size(f_l, l)
+    nw, nh, nb = text_size(f_n, n)
+    ic = phone_icon(130, GREEN, WHITE)
+    tw = max(lw, nw)
+    padx, pady, bw = 40, 30, 7
+    w = padx * 2 + ic.width + 28 + tw
+    h = pady * 2 + max(ic.height, lh + 14 + nh)
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle((0, 0, w - 1, h - 1), radius=34, fill=GREEN)
+    d.rounded_rectangle((bw, bw, w - 1 - bw, h - 1 - bw), radius=28, fill=WHITE)
+    img.alpha_composite(ic, (padx, (h - ic.height) // 2))
+    x0 = padx + ic.width + 28
+    y0 = (h - (lh + 14 + nh)) // 2
+    d.text((x0 + (tw - lw) // 2 - lb[0], y0 - lb[1]), l, font=f_l, fill=NAVY)
+    d.text((x0 + (tw - nw) // 2 - nb[0], y0 + lh + 14 - nb[1]), n, font=f_n, fill=RED)
+    return shadowed(img)
+
+
+def phone_pill():
+    f = font(HEAVY, 44)
+    t = "NELSON  019-8149687"
+    tw, th, b = text_size(f, t)
+    ic = phone_icon(th + 24, WHITE, GREEN)
+    padx, pady, bw = 22, 16, 6
+    w = padx * 2 + ic.width + 16 + tw + 10
+    h = pady * 2 + max(ic.height, th)
+    img = Image.new("RGBA", (w + bw * 2, h + bw * 2), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle((0, 0, w + bw * 2 - 1, h + bw * 2 - 1), radius=(h + bw * 2) // 2, fill=WHITE)
+    d.rounded_rectangle((bw, bw, bw + w - 1, bw + h - 1), radius=h // 2, fill=GREEN)
+    img.alpha_composite(ic, (bw + padx, bw + (h - ic.height) // 2))
+    d.text((bw + padx + ic.width + 16 - b[0], bw + (h - th) // 2 - b[1]), t, font=f, fill=WHITE)
+    return shadowed(img)
+
+
 # ---------- elements ----------
 tag_top = pill("PROJEK BARU · RUMAH SIAP", font(HEAVY, 46), NAVY, YELLOW, padx=44, pady=22)
 loc_big = location_card(["SIJANGKANG", "TELOK PANGLIMA GARANG"], [104, 64], [NAVY, RED])
@@ -184,6 +243,8 @@ DKGREEN = (0, 120, 70, 255)
 mr_big = pill("MALAY RESERVED", font(HEAVY, 56), YELLOW, DKGREEN, padx=44, pady=24, border=YELLOW, bw=7)
 mr_small = pill("MALAY RESERVED", font(HEAVY, 36), YELLOW, DKGREEN, padx=26, pady=16, border=YELLOW, bw=5)
 cta_top = pill("JANGAN LEPASKAN!", font(HEAVY, 60), WHITE, RED, padx=48, pady=24, border=WHITE)
+phone_big = phone_card()
+phone_small = phone_pill()
 cta_main = pill("PM / WHATSAPP UNTUK VIEWING", font(HEAVY, 44), WHITE, GREEN, padx=40, pady=26,
                 border=WHITE)
 cta_price = price_sticker(0.85)
@@ -254,15 +315,17 @@ def render(t):
     place(fr, price_small, 330, 460, window(t, INTRO_END + 0.1, CTA_START), pulse * 0.6)
     place(fr, mr_small, 835, 545, window(t, INTRO_END + 0.2, CTA_START))
     place(fr, specs, W / 2, 1640, window(t, 0.6, CTA_START))
+    place(fr, phone_small, W / 2, 1790, window(t, 0.9, CTA_START))
     for st, en, txt in rooms:
         place(fr, room_imgs[txt], W / 2, 1440, window(t, max(st, INTRO_END - 0.5 if st < INTRO_END else st), en))
     # ending CTA
     place(fr, loc_small, W / 2, 330, window(t, CTA_START, 99))
-    place(fr, cta_top, W / 2, 620, window(t, CTA_START + 0.1, 99))
-    place(fr, cta_price, W / 2, 900, window(t, CTA_START + 0.3, 99), pulse)
-    place(fr, mr_big, W / 2, 1130, window(t, CTA_START + 0.4, 99))
-    place(fr, specs, W / 2, 1290, window(t, CTA_START + 0.5, 99))
-    place(fr, cta_main, W / 2, 1490, window(t, CTA_START + 0.7, 99), pulse * 0.7)
+    place(fr, cta_top, W / 2, 560, window(t, CTA_START + 0.1, 99))
+    place(fr, cta_price, W / 2, 820, window(t, CTA_START + 0.3, 99), pulse)
+    place(fr, mr_big, W / 2, 1040, window(t, CTA_START + 0.4, 99))
+    place(fr, specs, W / 2, 1195, window(t, CTA_START + 0.5, 99))
+    place(fr, cta_main, W / 2, 1370, window(t, CTA_START + 0.7, 99))
+    place(fr, phone_big, W / 2, 1580, window(t, CTA_START + 0.9, 99), pulse * 0.7)
     return fr
 
 
