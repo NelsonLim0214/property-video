@@ -1,0 +1,182 @@
+#!/usr/bin/env python3
+"""Cut the raw property walkthrough into a ~60s TikTok video with
+bilingual (BM + 中文) subtitles, highlight cards and a location tag.
+
+Usage: python3 edit.py input.mov output.mp4
+"""
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+SPEED = 1.05  # slight speed-up, not noticeable, gets us under 60s
+
+LOCATION = "Bandar Rimbayu, Selangor"  # from the clip's GPS (+2.9599, +101.5518)
+TITLE = "双层半独立洋房 · Semi-D 2 Tingkat"
+
+# (source_start, source_end) in seconds of the raw clip
+SEGMENTS = [
+    (0.0, 6.95),    # frontage, 40ft wide, big porch
+    (7.2, 15.1),    # build-up 29 x 32
+    (15.5, 18.5),   # showroom
+    (19.6, 21.2),   # memang cantik
+    (23.0, 26.5),   # ground-floor room + store
+    (32.7, 38.0),   # bathroom, toilet, kitchen
+    (39.1, 47.8),   # semi-D, land behind & side
+    (49.1, 51.8),   # side 10ft
+    (62.4, 65.6),   # SPC flooring
+    (70.3, 73.6),   # family hall
+    (76.0, 78.5),   # room 2
+    (84.9, 93.6),   # room 3 + summary 4R4B
+    (94.0, 96.2),   # master room
+    (104.4, 107.5), # master bathroom
+]
+
+# (source_start, source_end, malay, chinese)
+SUBS = [
+    (0.0, 3.2, "Rumah ini lebar 40 kaki.", "这间房子土地宽40尺"),
+    (3.3, 6.95, "Sudah ada rumah contoh, porch depan memang besar.", "已有样板屋，前面门廊非常大"),
+    (7.3, 10.0, "Build-up rumah 29 kaki,", "建筑面积：宽29尺"),
+    (10.6, 15.1, "panjangnya 32 kaki.", "长32尺"),
+    (15.6, 18.5, "Ini showroom dia.", "这是样板屋"),
+    (19.6, 21.2, "Memang cantik!", "真的很漂亮！"),
+    (23.2, 26.5, "Bawah ada satu bilik dan stor.", "楼下有一间房 + 储藏室"),
+    (32.8, 34.3, "Bilik air.", "浴室"),
+    (34.4, 36.0, "Tandas.", "厕所"),
+    (36.1, 38.0, "Ini kitchen dia.", "这是厨房"),
+    (39.2, 42.0, "Ini rumah semi-D.", "这是半独立式洋房"),
+    (42.3, 46.2, "Belakang rumah ada tanah, tepi pun ada tanah.", "屋后有地，旁边也有地"),
+    (46.2, 47.8, "Belakang 10 kaki.", "后面10尺"),
+    (49.1, 51.8, "Tepi pula ada 10 kaki tanah.", "侧边还有10尺地"),
+    (62.5, 65.6, "Lantai SPC disediakan.", "配SPC地板"),
+    (70.4, 73.6, "Atas ada satu family hall.", "楼上有家庭厅"),
+    (76.1, 78.5, "Bilik kedua, tandas sendiri.", "第二间房，独立厕所"),
+    (85.0, 87.0, "Bilik ketiga pun ada tandas sendiri.", "第三间房也有独立厕所"),
+    (87.0, 90.3, "Jadi rumah ini 4 bilik, 4 tandas,", "所以这是 4房4厕"),
+    (90.3, 93.6, "double storey semi-D.", "双层半独立式洋房"),
+    (94.1, 96.2, "Okey, master room.", "主人房"),
+    (104.5, 107.5, "Master room ada tandas sendiri.", "主人房有独立浴室"),
+]
+
+# Highlight cards: (source_start, source_end, text)
+HIGHLIGHTS = [
+    (0.0, 6.95, "✔ 土地宽 40尺\\N✔ 超大门廊"),
+    (7.2, 15.1, "建筑面积 29尺 × 32尺"),
+    (15.5, 21.2, "样板屋 Show Unit"),
+    (23.0, 26.5, "楼下有睡房 + 储藏室"),
+    (32.7, 38.0, "楼下浴室 + 厨房"),
+    (39.1, 51.8, "✔ 后院 10尺\\N✔ 侧边 10尺\\N额外土地！"),
+    (62.4, 65.6, "SPC 地板"),
+    (70.3, 73.6, "楼上家庭厅"),
+    (76.0, 87.0, "每间房都有独立厕所"),
+    (87.0, 93.6, "4房 4厕"),
+    (94.0, 107.5, "主人房 + 独立浴室"),
+]
+
+END_CARD = "4房4厕 · 40尺宽地\\N后院+侧边额外土地\\N\\N私信了解更多 / DM untuk info"
+
+
+def src_to_out(t):
+    """Map a source timestamp to output timestamp (after cuts + speed)."""
+    acc = 0.0
+    for s, e in SEGMENTS:
+        if t < s:
+            return acc / SPEED
+        if t <= e:
+            return (acc + t - s) / SPEED
+        acc += e - s
+    return acc / SPEED
+
+
+def ts(t):
+    t = max(t, 0)
+    h = int(t // 3600)
+    m = int(t % 3600 // 60)
+    s = t % 60
+    return f"{h}:{m:02d}:{s:05.2f}"
+
+
+def build_ass(total):
+    font = "WenQuanYi Zen Hei"
+    head = f"""[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,{font},62,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,5,2,2,80,140,420,1
+Style: Hi,{font},70,&H00000000,&H00000000,&H0000D7FF,&H0000D7FF,1,0,0,0,100,100,0,0,3,18,0,8,80,140,560,1
+Style: Title,{font},56,&H00FFFFFF,&H00FFFFFF,&H002A2AD0,&H002A2AD0,1,0,0,0,100,100,0,0,3,14,0,8,60,140,190,1
+Style: Loc,{font},44,&H00FFFFFF,&H00FFFFFF,&H00000000,&H90000000,1,0,0,0,100,100,0,0,1,4,1,8,60,140,300,1
+Style: End,{font},72,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB0000000,1,0,0,0,100,100,0,0,3,30,0,5,80,140,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+"""
+    ev = []
+    end_start = total - 3.0
+    ev.append(f"Dialogue: 2,{ts(0)},{ts(end_start)},Title,,0,0,0,,{TITLE}")
+    ev.append(f"Dialogue: 2,{ts(0)},{ts(end_start)},Loc,,0,0,0,,位置 Lokasi：{LOCATION}")
+    for s, e, ms, zh in SUBS:
+        a, b = src_to_out(s), min(src_to_out(e), end_start)
+        if b > a:
+            ev.append(
+                f"Dialogue: 1,{ts(a)},{ts(b)},Sub,,0,0,0,,{zh}\\N{{\\fs48\\bord3\\c&H00E6FF&}}{ms}"
+            )
+    for s, e, txt in HIGHLIGHTS:
+        a, b = src_to_out(s), min(src_to_out(e), end_start)
+        if b > a:
+            ev.append(
+                f"Dialogue: 3,{ts(a)},{ts(b)},Hi,,0,0,0,,{{\\fad(120,120)\\t(0,150,\\fscx108\\fscy108)\\t(150,300,\\fscx100\\fscy100)}}{txt}"
+            )
+    ev.append(
+        f"Dialogue: 4,{ts(end_start)},{ts(total)},End,,0,0,0,,{{\\fad(250,0)}}{END_CARD}\\N{{\\fs50}}位置 Lokasi：{LOCATION}"
+    )
+    return head + "\n".join(ev) + "\n"
+
+
+def main():
+    src, out = sys.argv[1], sys.argv[2]
+    total = sum(e - s for s, e in SEGMENTS) / SPEED
+    tmp = Path(tempfile.mkdtemp())
+    ass = tmp / "subs.ass"
+    ass.write_text(build_ass(total), encoding="utf-8")
+
+    parts, labels = [], ""
+    fade = 0.06
+    for i, (s, e) in enumerate(SEGMENTS):
+        d = e - s
+        parts.append(
+            f"[0:v]trim={s}:{e},setpts=PTS-STARTPTS,"
+            f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,setsar=1[v{i}]"
+        )
+        parts.append(
+            f"[0:a]atrim={s}:{e},asetpts=PTS-STARTPTS,"
+            f"afade=t=in:d={fade},afade=t=out:st={d - fade:.3f}:d={fade}[a{i}]"
+        )
+        labels += f"[v{i}][a{i}]"
+    n = len(SEGMENTS)
+    parts.append(f"{labels}concat=n={n}:v=1:a=1[vc][ac]")
+    parts.append(
+        f"[vc]setpts=PTS/{SPEED},eq=saturation=1.12:contrast=1.04,"
+        f"ass={ass}[vo]"
+    )
+    parts.append(f"[ac]atempo={SPEED},loudnorm=I=-14:TP=-1.5:LRA=11[ao]")
+    cmd = [
+        "ffmpeg", "-y", "-v", "error", "-stats", "-i", src,
+        "-filter_complex", ";".join(parts),
+        "-map", "[vo]", "-map", "[ao]",
+        "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-profile:v", "high",
+        "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-ar", "44100",
+        "-movflags", "+faststart", out,
+    ]
+    print(f"Output length ≈ {total:.1f}s")
+    subprocess.run(cmd, check=True)
+    Path(out).with_suffix(".ass").write_text(ass.read_text(encoding="utf-8"), encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()
