@@ -9,6 +9,7 @@ import sys
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 SRC, OUT, FONT_DIR = sys.argv[1], sys.argv[2], sys.argv[3]
+MUSIC = sys.argv[4] if len(sys.argv) > 4 and sys.argv[4] != "--preview" else None
 W, H = 1080, 1920
 FPS_NUM, FPS_DEN = 30000, 1001
 FPS = FPS_NUM / FPS_DEN
@@ -179,6 +180,9 @@ price_big = price_sticker(1.0)
 price_small = price_sticker(0.65)
 loc_small = location_card(["SIJANGKANG", "TELOK PANGLIMA GARANG"], [62, 40], [NAVY, RED], max_w=760)
 specs = spec_bar()
+DKGREEN = (0, 120, 70, 255)
+mr_big = pill("MALAY RESERVED", font(HEAVY, 56), YELLOW, DKGREEN, padx=44, pady=24, border=YELLOW, bw=7)
+mr_small = pill("MALAY RESERVED", font(HEAVY, 36), YELLOW, DKGREEN, padx=26, pady=16, border=YELLOW, bw=5)
 cta_top = pill("JANGAN LEPASKAN!", font(HEAVY, 60), WHITE, RED, padx=48, pady=24, border=WHITE)
 cta_main = pill("PM / WHATSAPP UNTUK VIEWING", font(HEAVY, 44), WHITE, GREEN, padx=40, pady=26,
                 border=WHITE)
@@ -243,10 +247,12 @@ def render(t):
     place(fr, tag_top, W / 2, 330, window(t, 0.0, INTRO_END))
     place(fr, loc_big, W / 2, 520, window(t, 0.15, INTRO_END))
     place(fr, sub_pill, W / 2, 720, window(t, 0.35, INTRO_END))
+    place(fr, mr_big, W / 2, 1320, window(t, 1.2, INTRO_END))
     place(fr, price_big, W / 2, 1060, window(t, 0.8, INTRO_END, fin=0.45), pulse if t > 1.3 else 0)
     # persistent info during walkthrough
     place(fr, loc_small, W / 2, 230, window(t, INTRO_END, CTA_START))
     place(fr, price_small, 330, 460, window(t, INTRO_END + 0.1, CTA_START), pulse * 0.6)
+    place(fr, mr_small, 835, 545, window(t, INTRO_END + 0.2, CTA_START))
     place(fr, specs, W / 2, 1640, window(t, 0.6, CTA_START))
     for st, en, txt in rooms:
         place(fr, room_imgs[txt], W / 2, 1440, window(t, max(st, INTRO_END - 0.5 if st < INTRO_END else st), en))
@@ -254,8 +260,9 @@ def render(t):
     place(fr, loc_small, W / 2, 330, window(t, CTA_START, 99))
     place(fr, cta_top, W / 2, 620, window(t, CTA_START + 0.1, 99))
     place(fr, cta_price, W / 2, 900, window(t, CTA_START + 0.3, 99), pulse)
-    place(fr, specs, W / 2, 1220, window(t, CTA_START + 0.5, 99))
-    place(fr, cta_main, W / 2, 1440, window(t, CTA_START + 0.7, 99), pulse * 0.7)
+    place(fr, mr_big, W / 2, 1130, window(t, CTA_START + 0.4, 99))
+    place(fr, specs, W / 2, 1290, window(t, CTA_START + 0.5, 99))
+    place(fr, cta_main, W / 2, 1490, window(t, CTA_START + 0.7, 99), pulse * 0.7)
     return fr
 
 
@@ -267,11 +274,14 @@ if __name__ == "__main__":
     cmd = [
         "ffmpeg", "-y", "-v", "error", "-stats",
         "-i", SRC,
+        *(["-i", MUSIC] if MUSIC else []),
         "-f", "rawvideo", "-pix_fmt", "rgba", "-s", f"{W}x{H}", "-r", f"{FPS_NUM}/{FPS_DEN}", "-i", "pipe:0",
         "-filter_complex",
         "[0:v]scale=1080:1920:flags=lanczos,setsar=1,eq=saturation=1.12:contrast=1.04[bg];"
-        "[bg][1:v]overlay=0:0:format=auto:shortest=1,format=yuv420p[v]",
-        "-map", "[v]", "-map", "0:a",
+        f"[bg][{2 if MUSIC else 1}:v]overlay=0:0:format=auto:shortest=1,format=yuv420p[v]"
+        + (";[0:a]volume=0.6[o];[1:a]volume=0.55[m];[o][m]amix=inputs=2:duration=first:normalize=0,"
+           "alimiter=limit=0.95[a]" if MUSIC else ""),
+        "-map", "[v]", "-map", "[a]" if MUSIC else "0:a",
         "-c:v", "libx264", "-preset", "medium", "-crf", "19", "-profile:v", "high",
         "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", OUT,
     ]
