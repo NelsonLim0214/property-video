@@ -13,23 +13,23 @@ from pathlib import Path
 
 import style as S
 
-LOCATION = "Sijangkang, Kuala Langat, Selangor"
-TITLE = "Teres 1 Tingkat · Sijangkang"
-PRICE_BAR = "RM399K NETT · Freehold · 20' × 70'"
+LOCATION = "Sijangkang, Kuala Langat"
+TITLE = "Teres 1 Tingkat · 20' × 70'"
+PRICE_BAR = "RM399K NETT · Freehold"
 
 # (source_start, source_end, highlight card text or None)
 SEGMENTS = [
     (0.0, 5.5, None),                       # neighbourhood (hook card below)
-    (6.5, 14.0, "Saiz tanah 20' × 70'\\NPorch luas"),
-    (15.5, 21.0, "Ruang tamu luas"),
+    (6.5, 14.0, "Tanah 20' × 70'\\NPorch luas"),
+    (15.5, 21.0, "Ruang tamu\\Nluas"),
     (25.0, 29.5, "Bilik tidur"),
     (31.0, 33.8, "Bilik air"),
     (35.0, 39.5, "Bilik tidur"),
     (42.0, 44.8, "Bilik air kedua"),
     (46.0, 50.0, "Dapur luas"),
     (51.0, 54.5, "Bilik tidur"),
-    (56.0, 58.8, "Tingkap besar · terang"),
-    (59.0, 61.5, "Sinki + pintu belakang"),
+    (56.0, 58.8, "Tingkap besar\\NRumah terang"),
+    (59.0, 61.5, "Sinki +\\Npintu belakang"),
     (63.5, 69.8, "Laman belakang"),
 ]
 
@@ -39,12 +39,13 @@ def build_ass(total, starts):
     ev = [
         # opening hook over the street shot
         S.dim(0, hook_end),
-        S.price(0, hook_end, "RM399K", y=720),
-        f"Dialogue: 6,{S.ts(0.25)},{S.ts(hook_end)},Bar,,0,0,0,,{{\\an5\\pos(540,880)}}{S.bounce(3)}NETT · FREEHOLD",
-        S.big(0.5, hook_end, "Malay Reserve", 1010, extra=f"\\1c{S.YELLOW}"),
-        S.big(0.7, hook_end, "Teres 1 Tingkat · Sijangkang", 1100, extra="\\fs52"),
+        S.price(0, hook_end, "RM399K", y=600),
+        f"Dialogue: 6,{S.ts(0.25)},{S.ts(hook_end)},Bar,,0,0,0,,{{\\an5\\pos(540,860)}}{S.bounce()}NETT · FREEHOLD",
+        S.big(0.5, hook_end, "Malay Reserve", 1020, extra=f"\\1c{S.YELLOW}"),
+        S.big(0.7, hook_end, "Teres 1 Tingkat", 1150),
+        S.big(0.7, hook_end, "Sijangkang", 1280),
         # persistent labels
-        f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Title,,0,0,0,,{{\\frz-1}}{TITLE}",
+        f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Title,,0,0,0,,{TITLE}",
         f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Loc,,0,0,0,,Lokasi: {LOCATION}",
         f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Bar,,0,0,0,,{PRICE_BAR}",
     ]
@@ -57,13 +58,14 @@ def build_ass(total, starts):
     # end card
     ev += [
         S.dim(end_start, total),
-        S.price(end_start, total, "RM399K", y=640),
-        S.big(end_start, total, "NETT · FREEHOLD", 800, extra=f"\\1c{S.YELLOW}\\fs70"),
-        S.big(end_start, total, "Malay Reserve", 900),
-        S.big(end_start, total, "20' × 70' · Teres 1 Tingkat", 990),
-        S.big(end_start, total, "Sijangkang, Selangor", 1080),
-        S.big(end_start, total, "DM untuk info & lawatan!", 1220, layer=6,
-              extra=f"\\fs58\\1c{S.BLACK}\\3c{S.YELLOW}\\bord18\\shad0\\t(300,600,\\fscx106\\fscy106)\\t(600,900,\\fscx100\\fscy100)"),
+        S.price(end_start, total, "RM399K", y=480),
+        S.big(end_start, total, "NETT · FREEHOLD", 700, extra=f"\\1c{S.YELLOW}"),
+        S.big(end_start, total, "Malay Reserve", 830, extra="\\fs100"),
+        S.big(end_start, total, "Teres 1 Tingkat", 950, extra="\\fs100"),
+        S.big(end_start, total, "20' × 70'", 1070, extra="\\fs100"),
+        S.big(end_start, total, "Sijangkang, Selangor", 1190, extra="\\fs100"),
+        S.big(end_start, total, "DM untuk info & lawatan!", 1350, layer=6,
+              extra=f"\\fs80\\1c{S.BLACK}\\3c{S.YELLOW}\\bord20\\shad0"),
     ]
     return S.HEADER + "\n".join(ev) + "\n"
 

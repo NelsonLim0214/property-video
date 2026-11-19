@@ -7,58 +7,59 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Title,Poppins Black,54,&H00FFFFFF,&H00FFFFFF,&H004639E6,&H64000000,0,0,0,0,100,100,1,0,3,16,5,8,60,140,170,1
-Style: Loc,Poppins ExtraBold,40,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,4,3,8,60,140,280,1
-Style: Hi,Poppins Black,80,&H00000000,&H00000000,&H000AD6FF,&H78000000,0,0,0,0,100,100,0,0,3,20,8,8,70,140,560,1
-Style: Sub,Poppins ExtraBold,62,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,6,4,2,70,140,420,1
-Style: Price,Anton,250,&H000AD6FF,&H000AD6FF,&H00000000,&H004639E6,0,0,0,0,100,100,2,0,1,10,10,5,40,100,0,1
-Style: Big,Poppins Black,74,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,7,5,5,60,120,0,1
-Style: Bar,Anton,74,&H00FFFFFF,&H00FFFFFF,&H004639E6,&H64000000,0,0,0,0,100,100,2,0,3,18,6,2,60,140,400,1
-Style: Dim,Poppins Black,10,&H00000000,&H00000000,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1
+Style: Title,Baloo 2 ExtraBold,80,&H00FFFFFF,&H00FFFFFF,&H004639E6,&H64000000,0,0,0,0,100,100,0,0,3,18,5,8,60,120,160,1
+Style: Loc,Baloo 2 ExtraBold,58,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,5,3,8,60,120,290,1
+Style: Hi,Baloo 2 ExtraBold,124,&H00000000,&H00000000,&H000AD6FF,&H78000000,0,0,0,0,100,100,0,0,3,22,8,8,60,120,560,1
+Style: Sub,Baloo 2 ExtraBold,84,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,7,4,2,60,120,400,1
+Style: Price,Baloo 2 ExtraBold,340,&H000AD6FF,&H000AD6FF,&H00000000,&H004639E6,0,0,0,0,100,100,0,0,1,12,10,5,40,100,0,1
+Style: Big,Baloo 2 ExtraBold,112,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,8,5,5,50,100,0,1
+Style: Bar,Baloo 2 ExtraBold,100,&H00FFFFFF,&H00FFFFFF,&H004639E6,&H64000000,0,0,0,0,100,100,0,0,3,20,6,2,60,120,380,1
+Style: Dim,Baloo 2 ExtraBold,10,&H00000000,&H00000000,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 6,0:00:00.00,0:00:02.67,Price,,0,0,0,,{\pos(540,700)}{\fad(80,150)\frz-4\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}SEMI-D
-Dialogue: 5,0:00:00.00,0:00:02.67,Big,,0,0,0,,{\pos(540,860)\fad(250,0)\fs60}{\fnNoto Sans CJK SC Black}双层半独立 · 马来保留地{\fnPoppins Black}
-Dialogue: 5,0:00:00.00,0:00:02.67,Big,,0,0,0,,{\pos(540,960)\fad(250,0)\fs60\1c&H000AD6FF}{\fnNoto Sans CJK SC Black}4房 4厕 · 40尺宽地{\fnPoppins Black}
-Dialogue: 2,0:00:02.67,0:00:56.67,Title,,0,0,0,,{\frz-1}{\fnNoto Sans CJK SC Black}双层半独立洋房 · 马来保留地{\fnPoppins Black}
-Dialogue: 2,0:00:02.67,0:00:56.67,Loc,,0,0,0,,{\fnNoto Sans CJK SC Black}位置 {\fnPoppins Black}Lokasi: Bandar Rimbayu, Selangor
-Dialogue: 1,0:00:00.00,0:00:03.05,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}这间房子土地宽40尺{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Rumah ini lebar 40 kaki.
-Dialogue: 1,0:00:03.14,0:00:06.62,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}已有样板屋，前面门廊非常大{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Sudah ada rumah contoh, porch depan memang besar.
-Dialogue: 1,0:00:06.71,0:00:09.29,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}建筑面积：宽29尺{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Build-up rumah 29 kaki,
-Dialogue: 1,0:00:09.86,0:00:14.14,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}长32尺{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}panjangnya 32 kaki.
-Dialogue: 1,0:00:14.24,0:00:17.00,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}这是样板屋{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Ini showroom dia.
-Dialogue: 1,0:00:17.00,0:00:18.52,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}真的很漂亮！{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Memang cantik!
-Dialogue: 1,0:00:18.71,0:00:21.86,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}楼下有一间房 + 储藏室{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Bawah ada satu bilik dan stor.
-Dialogue: 1,0:00:21.95,0:00:23.38,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}浴室{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Bilik air.
-Dialogue: 1,0:00:23.48,0:00:25.00,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}厕所{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Tandas.
-Dialogue: 1,0:00:25.10,0:00:26.90,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}这是厨房{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Ini kitchen dia.
-Dialogue: 1,0:00:27.00,0:00:29.67,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}这是半独立式洋房{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Ini rumah semi-D.
-Dialogue: 1,0:00:29.95,0:00:33.67,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}屋后有地，旁边也有地{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Belakang rumah ada tanah, tepi pun ada tanah.
-Dialogue: 1,0:00:33.67,0:00:35.19,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}后面10尺{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Belakang 10 kaki.
-Dialogue: 1,0:00:35.19,0:00:37.76,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}侧边还有10尺地{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Tepi pula ada 10 kaki tanah.
-Dialogue: 1,0:00:37.86,0:00:40.81,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}配SPC地板{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Lantai SPC disediakan.
-Dialogue: 1,0:00:40.90,0:00:43.95,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}楼上有家庭厅{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Atas ada satu family hall.
-Dialogue: 1,0:00:44.05,0:00:46.33,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}第二间房，独立厕所{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Bilik kedua, tandas sendiri.
-Dialogue: 1,0:00:46.43,0:00:48.33,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}第三间房也有独立厕所{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Bilik ketiga pun ada tandas sendiri.
-Dialogue: 1,0:00:48.33,0:00:51.48,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}所以这是 4房4厕{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Jadi rumah ini 4 bilik, 4 tandas,
-Dialogue: 1,0:00:51.48,0:00:54.62,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}双层半独立式洋房{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}double storey semi-D.
-Dialogue: 1,0:00:54.71,0:00:56.67,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}主人房{\fnPoppins Black}\N{\fs46\bord4\c&H000AD6FF}Okey, master room.
-Dialogue: 3,0:00:02.67,0:00:06.62,Hi,,0,0,0,,{\fad(80,150)\frz-3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}{\fnNoto Sans CJK SC Black}土地宽 40尺\N超大门廊{\fnPoppins Black}
-Dialogue: 3,0:00:06.62,0:00:14.14,Hi,,0,0,0,,{\fad(80,150)\frz2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}{\fnNoto Sans CJK SC Black}建筑面积\N29尺 × 32尺{\fnPoppins Black}
-Dialogue: 3,0:00:14.14,0:00:18.52,Hi,,0,0,0,,{\fad(80,150)\frz-2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}{\fnNoto Sans CJK SC Black}样板屋{\fnPoppins Black}
-Dialogue: 3,0:00:18.52,0:00:21.86,Hi,,0,0,0,,{\fad(80,150)\frz3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H004639E6\1c&H00FFFFFF}{\fnNoto Sans CJK SC Black}楼下有睡房\N+ 储藏室{\fnPoppins Black}
-Dialogue: 3,0:00:21.86,0:00:26.90,Hi,,0,0,0,,{\fad(80,150)\frz-3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}{\fnNoto Sans CJK SC Black}楼下浴室 + 厨房{\fnPoppins Black}
-Dialogue: 3,0:00:26.90,0:00:37.76,Hi,,0,0,0,,{\fad(80,150)\frz2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}{\fnNoto Sans CJK SC Black}后院 10尺\N侧边 10尺\N额外土地！{\fnPoppins Black}
-Dialogue: 3,0:00:37.76,0:00:40.81,Hi,,0,0,0,,{\fad(80,150)\frz-2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}{\fnNoto Sans CJK SC Black}SPC 地板{\fnPoppins Black}
-Dialogue: 3,0:00:40.81,0:00:43.95,Hi,,0,0,0,,{\fad(80,150)\frz3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H004639E6\1c&H00FFFFFF}{\fnNoto Sans CJK SC Black}楼上家庭厅{\fnPoppins Black}
-Dialogue: 3,0:00:43.95,0:00:48.33,Hi,,0,0,0,,{\fad(80,150)\frz-3\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}{\fnNoto Sans CJK SC Black}每间房都有\N独立厕所{\fnPoppins Black}
-Dialogue: 3,0:00:48.33,0:00:54.62,Hi,,0,0,0,,{\fad(80,150)\frz2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}{\fnNoto Sans CJK SC Black}4房 4厕{\fnPoppins Black}
-Dialogue: 3,0:00:54.62,0:00:56.67,Hi,,0,0,0,,{\fad(80,150)\frz-2\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}{\fnNoto Sans CJK SC Black}主人房\N+ 独立浴室{\fnPoppins Black}
+Dialogue: 6,0:00:00.00,0:00:02.67,Price,,0,0,0,,{\pos(540,620)}{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}SEMI-D
+Dialogue: 5,0:00:00.00,0:00:02.67,Big,,0,0,0,,{\pos(540,830)\fad(250,0)}{\fnNoto Sans CJK SC Black}双层半独立{\fnBaloo 2 ExtraBold}
+Dialogue: 5,0:00:00.00,0:00:02.67,Big,,0,0,0,,{\pos(540,965)\fad(250,0)\1c&H000AD6FF}{\fnNoto Sans CJK SC Black}马来保留地{\fnBaloo 2 ExtraBold}
+Dialogue: 5,0:00:00.00,0:00:02.67,Big,,0,0,0,,{\pos(540,1100)\fad(250,0)}{\fnNoto Sans CJK SC Black}4房4厕 · 40尺宽地{\fnBaloo 2 ExtraBold}
+Dialogue: 2,0:00:02.67,0:00:56.67,Title,,0,0,0,,{\fnNoto Sans CJK SC Black}双层半独立 · 马来保留地{\fnBaloo 2 ExtraBold}
+Dialogue: 2,0:00:02.67,0:00:56.67,Loc,,0,0,0,,{\fnNoto Sans CJK SC Black}位置 {\fnBaloo 2 ExtraBold}Lokasi: Bandar Rimbayu, Selangor
+Dialogue: 1,0:00:00.00,0:00:03.05,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}这间房子土地宽40尺{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Rumah ini lebar 40 kaki.
+Dialogue: 1,0:00:03.14,0:00:06.62,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}已有样板屋，前面门廊非常大{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Sudah ada rumah contoh, porch depan memang besar.
+Dialogue: 1,0:00:06.71,0:00:09.29,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}建筑面积：宽29尺{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Build-up rumah 29 kaki,
+Dialogue: 1,0:00:09.86,0:00:14.14,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}长32尺{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}panjangnya 32 kaki.
+Dialogue: 1,0:00:14.24,0:00:17.00,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}这是样板屋{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Ini showroom dia.
+Dialogue: 1,0:00:17.00,0:00:18.52,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}真的很漂亮！{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Memang cantik!
+Dialogue: 1,0:00:18.71,0:00:21.86,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}楼下有一间房 + 储藏室{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Bawah ada satu bilik dan stor.
+Dialogue: 1,0:00:21.95,0:00:23.38,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}浴室{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Bilik air.
+Dialogue: 1,0:00:23.48,0:00:25.00,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}厕所{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Tandas.
+Dialogue: 1,0:00:25.10,0:00:26.90,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}这是厨房{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Ini kitchen dia.
+Dialogue: 1,0:00:27.00,0:00:29.67,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}这是半独立式洋房{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Ini rumah semi-D.
+Dialogue: 1,0:00:29.95,0:00:33.67,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}屋后有地，旁边也有地{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Belakang rumah ada tanah, tepi pun ada tanah.
+Dialogue: 1,0:00:33.67,0:00:35.19,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}后面10尺{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Belakang 10 kaki.
+Dialogue: 1,0:00:35.19,0:00:37.76,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}侧边还有10尺地{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Tepi pula ada 10 kaki tanah.
+Dialogue: 1,0:00:37.86,0:00:40.81,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}配SPC地板{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Lantai SPC disediakan.
+Dialogue: 1,0:00:40.90,0:00:43.95,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}楼上有家庭厅{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Atas ada satu family hall.
+Dialogue: 1,0:00:44.05,0:00:46.33,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}第二间房，独立厕所{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Bilik kedua, tandas sendiri.
+Dialogue: 1,0:00:46.43,0:00:48.33,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}第三间房也有独立厕所{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Bilik ketiga pun ada tandas sendiri.
+Dialogue: 1,0:00:48.33,0:00:51.48,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}所以这是 4房4厕{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Jadi rumah ini 4 bilik, 4 tandas,
+Dialogue: 1,0:00:51.48,0:00:54.62,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}双层半独立式洋房{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}double storey semi-D.
+Dialogue: 1,0:00:54.71,0:00:56.67,Sub,,0,0,0,,{\fnNoto Sans CJK SC Black}主人房{\fnBaloo 2 ExtraBold}\N{\fs60\bord5\c&H000AD6FF}Okey, master room.
+Dialogue: 3,0:00:02.67,0:00:06.62,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}{\fnNoto Sans CJK SC Black}土地宽 40尺\N超大门廊{\fnBaloo 2 ExtraBold}
+Dialogue: 3,0:00:06.62,0:00:14.14,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}{\fnNoto Sans CJK SC Black}建筑面积\N29尺 × 32尺{\fnBaloo 2 ExtraBold}
+Dialogue: 3,0:00:14.14,0:00:18.52,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}{\fnNoto Sans CJK SC Black}样板屋{\fnBaloo 2 ExtraBold}
+Dialogue: 3,0:00:18.52,0:00:21.86,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H004639E6\1c&H00FFFFFF}{\fnNoto Sans CJK SC Black}楼下有睡房\N+ 储藏室{\fnBaloo 2 ExtraBold}
+Dialogue: 3,0:00:21.86,0:00:26.90,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}{\fnNoto Sans CJK SC Black}楼下浴室 + 厨房{\fnBaloo 2 ExtraBold}
+Dialogue: 3,0:00:26.90,0:00:37.76,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}{\fnNoto Sans CJK SC Black}后院 10尺\N侧边 10尺\N额外土地！{\fnBaloo 2 ExtraBold}
+Dialogue: 3,0:00:37.76,0:00:40.81,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}{\fnNoto Sans CJK SC Black}SPC 地板{\fnBaloo 2 ExtraBold}
+Dialogue: 3,0:00:40.81,0:00:43.95,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H004639E6\1c&H00FFFFFF}{\fnNoto Sans CJK SC Black}楼上家庭厅{\fnBaloo 2 ExtraBold}
+Dialogue: 3,0:00:43.95,0:00:48.33,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H000AD6FF\1c&H00000000}{\fnNoto Sans CJK SC Black}每间房都有\N独立厕所{\fnBaloo 2 ExtraBold}
+Dialogue: 3,0:00:48.33,0:00:54.62,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00FFFFFF\1c&H00000000}{\fnNoto Sans CJK SC Black}4房 4厕{\fnBaloo 2 ExtraBold}
+Dialogue: 3,0:00:54.62,0:00:56.67,Hi,,0,0,0,,{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}{\3c&H00A0D606\1c&H00000000}{\fnNoto Sans CJK SC Black}主人房\N+ 独立浴室{\fnBaloo 2 ExtraBold}
 Dialogue: 4,0:00:56.67,0:00:59.67,Dim,,0,0,0,,{\fad(200,0)\pos(0,0)\1a&H70&\p1}m 0 0 l 1080 0 1080 1920 0 1920{\p0}
-Dialogue: 6,0:00:56.67,0:00:59.67,Price,,0,0,0,,{\pos(540,640)}{\fad(80,150)\frz-4\fscx30\fscy30\t(0,160,\fscx115\fscy115)\t(160,280,\fscx100\fscy100)}SEMI-D
-Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,820)\fad(250,0)}{\fnNoto Sans CJK SC Black}马来保留地{\fnPoppins Black}
-Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,910)\fad(250,0)}{\fnNoto Sans CJK SC Black}4房4厕 · 40尺宽地{\fnPoppins Black}
-Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,1000)\fad(250,0)}{\fnNoto Sans CJK SC Black}后院+侧边额外土地{\fnPoppins Black}
-Dialogue: 6,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,1140)\fad(250,0)\fs58\1c&H00000000\3c&H000AD6FF\bord18\shad0\t(300,600,\fscx106\fscy106)\t(600,900,\fscx100\fscy100)}{\fnNoto Sans CJK SC Black}私信了解更多{\fnPoppins Black} / DM untuk info
-Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,1260)\fad(250,0)\fs42}{\fnNoto Sans CJK SC Black}位置 {\fnPoppins Black}Lokasi: Bandar Rimbayu, Selangor
+Dialogue: 6,0:00:56.67,0:00:59.67,Price,,0,0,0,,{\pos(540,520)}{\fad(150,150)\fscx90\fscy90\t(0,180,\fscx100\fscy100)}SEMI-D
+Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,740)\fad(250,0)\fs100}{\fnNoto Sans CJK SC Black}马来保留地{\fnBaloo 2 ExtraBold}
+Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,865)\fad(250,0)\fs100}{\fnNoto Sans CJK SC Black}4房4厕 · 40尺宽地{\fnBaloo 2 ExtraBold}
+Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,990)\fad(250,0)\fs100}{\fnNoto Sans CJK SC Black}后院+侧边额外土地{\fnBaloo 2 ExtraBold}
+Dialogue: 6,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,1150)\fad(250,0)\fs80\1c&H00000000\3c&H000AD6FF\bord20\shad0}{\fnNoto Sans CJK SC Black}私信了解更多{\fnBaloo 2 ExtraBold} / DM
+Dialogue: 5,0:00:56.67,0:00:59.67,Big,,0,0,0,,{\pos(540,1290)\fad(250,0)\fs56}{\fnNoto Sans CJK SC Black}位置 {\fnBaloo 2 ExtraBold}Lokasi: Bandar Rimbayu, Selangor

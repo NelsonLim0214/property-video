@@ -14,8 +14,8 @@ import style as S
 SPEED = 1.05  # slight speed-up, not noticeable, gets us under 60s
 
 LOCATION = "Bandar Rimbayu, Selangor"  # from the clip's GPS (+2.9599, +101.5518)
-TITLE = "双层半独立洋房 · 马来保留地"
-TITLE_MS = "Semi-D 2 Tingkat · Malay Reserve"
+TITLE = "双层半独立 · 马来保留地"
+TITLE_MS = "Semi-D · Malay Reserve"
 
 # (source_start, source_end) in seconds of the raw clip
 SEGMENTS = [
@@ -114,19 +114,22 @@ def build_ass(total, lang="zh"):
     hook_end = src_to_out(HOOK_END)
 
     # opening hook
-    ev.append(S.price(0, hook_end, "SEMI-D", y=700))
-    ev.append(S.big(0, hook_end, Z("2 Tingkat · Malay Reserve" if malay else "双层半独立 · 马来保留地"), 860, extra="\\fs60"))
-    ev.append(S.big(0, hook_end, Z("4 Bilik · 4 Bilik Air" if malay else "4房 4厕 · 40尺宽地"), 960, extra=f"\\fs60\\1c{S.YELLOW}"))
+    ev.append(S.price(0, hook_end, "SEMI-D", y=620))
+    hook = (["2 Tingkat", "Malay Reserve", "4 Bilik · 4 Bilik Air"] if malay
+            else ["双层半独立", "马来保留地", "4房4厕 · 40尺宽地"])
+    for k, line in enumerate(hook):
+        col = f"\\1c{S.YELLOW}" if k == 1 else ""
+        ev.append(S.big(0, hook_end, Z(line), 830 + k * 135, extra=col))
 
     title = TITLE_MS if malay else TITLE
     loc = "Lokasi: " if malay else S.zh("位置 ") + "Lokasi: "
-    ev.append(f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Title,,0,0,0,,{{\\frz-1}}{Z(title)}")
+    ev.append(f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Title,,0,0,0,,{Z(title)}")
     ev.append(f"Dialogue: 2,{S.ts(hook_end)},{S.ts(end_start)},Loc,,0,0,0,,{loc}{LOCATION}")
 
     for s, e, ms, zh in SUBS:
         a, b = src_to_out(s), min(src_to_out(e), end_start)
         if b > a:
-            text = ms if malay else f"{S.zh(zh)}\\N{{\\fs46\\bord4\\c{S.YELLOW}}}{ms}"
+            text = ms if malay else f"{S.zh(zh)}\\N{{\\fs60\\bord5\\c{S.YELLOW}}}{ms}"
             ev.append(f"Dialogue: 1,{S.ts(a)},{S.ts(b)},Sub,,0,0,0,,{text}")
 
     for i, (s, e, txt) in enumerate(HIGHLIGHTS_MS if malay else HIGHLIGHTS):
@@ -136,15 +139,15 @@ def build_ass(total, lang="zh"):
 
     # end card
     ev.append(S.dim(end_start, total))
-    ev.append(S.price(end_start, total, "SEMI-D", y=640))
+    ev.append(S.price(end_start, total, "SEMI-D", y=520))
     lines = (["Tanah Rizab Melayu", "4 Bilik · 4 Bilik Air", "Tanah lebar 40 kaki"] if malay
              else [S.zh("马来保留地"), S.zh("4房4厕 · 40尺宽地"), S.zh("后院+侧边额外土地")])
     for k, line in enumerate(lines):
-        ev.append(S.big(end_start, total, line, 820 + k * 90))
-    cta = "DM untuk info & lawatan!" if malay else S.zh("私信了解更多") + " / DM untuk info"
-    ev.append(S.big(end_start, total, cta, 1140, layer=6,
-                    extra=f"\\fs58\\1c{S.BLACK}\\3c{S.YELLOW}\\bord18\\shad0\\t(300,600,\\fscx106\\fscy106)\\t(600,900,\\fscx100\\fscy100)"))
-    ev.append(S.big(end_start, total, f"{loc}{LOCATION}", 1260, extra="\\fs42"))
+        ev.append(S.big(end_start, total, line, 740 + k * 125, extra="\\fs100"))
+    cta = "DM untuk info & lawatan!" if malay else S.zh("私信了解更多") + " / DM"
+    ev.append(S.big(end_start, total, cta, 1150, layer=6,
+                    extra=f"\\fs80\\1c{S.BLACK}\\3c{S.YELLOW}\\bord20\\shad0"))
+    ev.append(S.big(end_start, total, f"{loc}{LOCATION}", 1290, extra="\\fs56"))
     return S.HEADER + "\n".join(ev) + "\n"
 
 
