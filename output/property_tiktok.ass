@@ -15,7 +15,7 @@ Style: End,WenQuanYi Zen Hei,72,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB0000000,1,0,
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 2,0:00:00.00,0:00:56.67,Title,,0,0,0,,双层半独立洋房 · Semi-D 2 Tingkat
+Dialogue: 2,0:00:00.00,0:00:56.67,Title,,0,0,0,,双层半独立洋房 · 马来保留地
 Dialogue: 2,0:00:00.00,0:00:56.67,Loc,,0,0,0,,位置 Lokasi：Bandar Rimbayu, Selangor
 Dialogue: 1,0:00:00.00,0:00:03.05,Sub,,0,0,0,,这间房子土地宽40尺\N{\fs48\bord3\c&H00E6FF&}Rumah ini lebar 40 kaki.
 Dialogue: 1,0:00:03.14,0:00:06.62,Sub,,0,0,0,,已有样板屋，前面门廊非常大\N{\fs48\bord3\c&H00E6FF&}Sudah ada rumah contoh, porch depan memang besar.
@@ -49,4 +49,4 @@ Dialogue: 3,0:00:40.81,0:00:43.95,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fsc
 Dialogue: 3,0:00:43.95,0:00:48.33,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}每间房都有独立厕所
 Dialogue: 3,0:00:48.33,0:00:54.62,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}4房 4厕
 Dialogue: 3,0:00:54.62,0:00:56.67,Hi,,0,0,0,,{\fad(120,120)\t(0,150,\fscx108\fscy108)\t(150,300,\fscx100\fscy100)}主人房 + 独立浴室
-Dialogue: 4,0:00:56.67,0:00:59.67,End,,0,0,0,,{\fad(250,0)}4房4厕 · 40尺宽地\N后院+侧边额外土地\N\N私信了解更多 / DM untuk info\N{\fs50}位置 Lokasi：Bandar Rimbayu, Selangor
+Dialogue: 4,0:00:56.67,0:00:59.67,End,,0,0,0,,{\fad(250,0)}马来保留地 Malay Reserve\N4房4厕 · 40尺宽地\N后院+侧边额外土地\N私信了解更多 / DM untuk info\N{\fs50}位置 Lokasi：Bandar Rimbayu, Selangor

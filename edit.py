@@ -2,7 +2,7 @@
 """Cut the raw property walkthrough into a ~60s TikTok video with
 bilingual (BM + 中文) subtitles, highlight cards and a location tag.
 
-Usage: python3 edit.py input.mov output.mp4
+Usage: python3 edit.py input.mov output.mp4 [zh|ms]
 """
 import subprocess
 import sys
@@ -12,7 +12,8 @@ from pathlib import Path
 SPEED = 1.05  # slight speed-up, not noticeable, gets us under 60s
 
 LOCATION = "Bandar Rimbayu, Selangor"  # from the clip's GPS (+2.9599, +101.5518)
-TITLE = "双层半独立洋房 · Semi-D 2 Tingkat"
+TITLE = "双层半独立洋房 · 马来保留地"
+TITLE_MS = "Semi-D 2 Tingkat · Malay Reserve"
 
 # (source_start, source_end) in seconds of the raw clip
 SEGMENTS = [
@@ -73,7 +74,24 @@ HIGHLIGHTS = [
     (94.0, 107.5, "主人房 + 独立浴室"),
 ]
 
-END_CARD = "4房4厕 · 40尺宽地\\N后院+侧边额外土地\\N\\N私信了解更多 / DM untuk info"
+END_CARD = "马来保留地 Malay Reserve\\N4房4厕 · 40尺宽地\\N后院+侧边额外土地\\N私信了解更多 / DM untuk info"
+
+# Malay-only version (Malay Reserve land: buyers are Malay / Bumiputera)
+HIGHLIGHTS_MS = [
+    (0.0, 6.95, "✔ Tanah lebar 40 kaki\\N✔ Porch besar"),
+    (7.2, 15.1, "Keluasan binaan 29' × 32'"),
+    (15.5, 21.2, "Rumah contoh dah siap"),
+    (23.0, 26.5, "Bilik di bawah + stor"),
+    (32.7, 38.0, "Bilik air bawah + dapur"),
+    (39.1, 51.8, "✔ Tanah belakang 10'\\N✔ Tanah tepi 10'\\NTanah lebih!"),
+    (62.4, 65.6, "Lantai SPC"),
+    (70.3, 73.6, "Family hall di atas"),
+    (76.0, 87.0, "Setiap bilik ada\\Nbilik air sendiri"),
+    (87.0, 93.6, "4 Bilik · 4 Bilik Air"),
+    (94.0, 107.5, "Master room + bilik air"),
+]
+
+END_CARD_MS = "Tanah Rizab Melayu\\N4 Bilik · 4 Bilik Air\\NTanah lebar 40 kaki\\NDM untuk harga & lawatan!"
 
 
 def src_to_out(t):
@@ -96,7 +114,7 @@ def ts(t):
     return f"{h}:{m:02d}:{s:05.2f}"
 
 
-def build_ass(total):
+def build_ass(total, lang="zh"):
     font = "WenQuanYi Zen Hei"
     head = f"""[Script Info]
 ScriptType: v4.00+
@@ -118,32 +136,35 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
     ev = []
     end_start = total - 3.0
-    ev.append(f"Dialogue: 2,{ts(0)},{ts(end_start)},Title,,0,0,0,,{TITLE}")
-    ev.append(f"Dialogue: 2,{ts(0)},{ts(end_start)},Loc,,0,0,0,,位置 Lokasi：{LOCATION}")
+    malay = lang == "ms"
+    title, loc = (TITLE_MS, "Lokasi: ") if malay else (TITLE, "位置 Lokasi：")
+    highlights, end_card = (HIGHLIGHTS_MS, END_CARD_MS) if malay else (HIGHLIGHTS, END_CARD)
+    ev.append(f"Dialogue: 2,{ts(0)},{ts(end_start)},Title,,0,0,0,,{title}")
+    ev.append(f"Dialogue: 2,{ts(0)},{ts(end_start)},Loc,,0,0,0,,{loc}{LOCATION}")
     for s, e, ms, zh in SUBS:
         a, b = src_to_out(s), min(src_to_out(e), end_start)
         if b > a:
-            ev.append(
-                f"Dialogue: 1,{ts(a)},{ts(b)},Sub,,0,0,0,,{zh}\\N{{\\fs48\\bord3\\c&H00E6FF&}}{ms}"
-            )
-    for s, e, txt in HIGHLIGHTS:
+            text = ms if malay else f"{zh}\\N{{\\fs48\\bord3\\c&H00E6FF&}}{ms}"
+            ev.append(f"Dialogue: 1,{ts(a)},{ts(b)},Sub,,0,0,0,,{text}")
+    for s, e, txt in highlights:
         a, b = src_to_out(s), min(src_to_out(e), end_start)
         if b > a:
             ev.append(
                 f"Dialogue: 3,{ts(a)},{ts(b)},Hi,,0,0,0,,{{\\fad(120,120)\\t(0,150,\\fscx108\\fscy108)\\t(150,300,\\fscx100\\fscy100)}}{txt}"
             )
     ev.append(
-        f"Dialogue: 4,{ts(end_start)},{ts(total)},End,,0,0,0,,{{\\fad(250,0)}}{END_CARD}\\N{{\\fs50}}位置 Lokasi：{LOCATION}"
+        f"Dialogue: 4,{ts(end_start)},{ts(total)},End,,0,0,0,,{{\\fad(250,0)}}{end_card}\\N{{\\fs50}}{loc}{LOCATION}"
     )
     return head + "\n".join(ev) + "\n"
 
 
 def main():
     src, out = sys.argv[1], sys.argv[2]
+    lang = sys.argv[3] if len(sys.argv) > 3 else "zh"  # "zh" (中文+BM) or "ms" (BM only)
     total = sum(e - s for s, e in SEGMENTS) / SPEED
     tmp = Path(tempfile.mkdtemp())
     ass = tmp / "subs.ass"
-    ass.write_text(build_ass(total), encoding="utf-8")
+    ass.write_text(build_ass(total, lang), encoding="utf-8")
 
     parts, labels = [], ""
     fade = 0.06
